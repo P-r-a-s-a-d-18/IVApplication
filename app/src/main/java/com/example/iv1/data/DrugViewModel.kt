@@ -1,10 +1,8 @@
-package com.example.iv1.ui
+package com.example.iv1.data
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.iv1.data.DataState
-import com.example.iv1.data.Drug
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -14,6 +12,9 @@ class DrugViewModel: ViewModel() {
     val response: MutableState<DataState> = mutableStateOf(DataState.Empty)
 
     val tempList: ArrayList<Drug> = ArrayList()
+
+    var drug1: Drug = Drug()
+    var drug2: Drug = Drug()
 
     init {
         fetchDataFromFirebase()
@@ -57,5 +58,26 @@ class DrugViewModel: ViewModel() {
 
     fun getSelectedDrugList(): ArrayList<Drug> {
         return tempList
+    }
+
+    fun getToCheck(): ArrayList<Pair<Drug, Drug>> {
+        val toCheck: ArrayList<Pair<Drug, Drug>> = ArrayList()
+        for (i in 0 until tempList.size - 1) {
+            for (j in i + 1 until tempList.size) {
+                if (i != j) {
+                    toCheck.add(Pair(tempList[i], tempList[j]))
+                }
+            }
+        }
+        return toCheck
+    }
+
+    fun setPair(pair: Pair<Drug, Drug>) {
+        drug1 = pair.first
+        drug2 = pair.second
+    }
+
+    fun getResultObject(): ArrayList<HashMap<String, String>> {
+        return drug1.type_of_incompatibility[drug2.drug_name]!!
     }
 }
