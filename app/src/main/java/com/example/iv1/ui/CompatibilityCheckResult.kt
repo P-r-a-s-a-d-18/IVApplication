@@ -44,25 +44,22 @@ fun StartCheck(viewModel: DrugViewModel) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DisplayCheck(drug1: Drug, drug2: Drug) {
-    val res: ArrayList<String> = ArrayList()
-    for(i in 0 until drug1.incompatibility_drugs.size) {
-        res.add(drug1.incompatibility_drugs[i].lowercase().trim())
-    }
-    val temp = res.contains(drug2.drug_name.lowercase().trim())
 
-//    println(toCheck.second.drug_name.lowercase().trim())
-//    println(res)
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(80.dp)
-            .padding(10.dp)
-    ) {
-        Row(modifier = Modifier.fillMaxSize()) {
-            Text(text = drug1.drug_name.trim() + " -- " + drug2.drug_name.trim() + " --> " + temp, fontSize = MaterialTheme.typography.h5.fontSize)
-        }
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .wrapContentSize()
+        .padding(10.dp),
+    Arrangement.spacedBy(8.dp)) {
+        Text(text = "Mixture", fontSize = MaterialTheme.typography.h4.fontSize)
+        Text(text = drug1.type_of_incompatibility[drug2.drug_name]?.get(0)?.get("Mixture").toString(), fontSize = MaterialTheme.typography.h5.fontSize)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = "Type", fontSize = MaterialTheme.typography.h4.fontSize)
+        Text(text = drug1.type_of_incompatibility[drug2.drug_name]?.get(0)?.get("Type").toString(), fontSize = MaterialTheme.typography.h5.fontSize)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = "Effect", fontSize = MaterialTheme.typography.h4.fontSize)
+        Text(text = drug1.type_of_incompatibility[drug2.drug_name]?.get(0)?.get("Effect").toString(), fontSize = MaterialTheme.typography.h5.fontSize)
     }
 }
