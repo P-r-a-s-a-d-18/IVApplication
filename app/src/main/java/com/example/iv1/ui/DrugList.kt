@@ -1,18 +1,26 @@
 package com.example.iv1.ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.iv1.data.DataState
 import com.example.iv1.data.Drug
+import com.example.iv1.R
 
 @Composable
 fun SetData(
@@ -48,19 +56,71 @@ fun ShowDrugList(
     onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
     viewModel: DrugViewModel
 ) {
-    LazyColumn {
-        items(drugs) {drug ->
-            ListItem(drug, viewModel)
+    Column(modifier = Modifier.padding(10.dp)) {
+        SearchBar()
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        LazyColumn {
+            items(drugs) { drug ->
+                ListItem(drug, viewModel)
+            }
         }
-    }
-    OutlinedButton(
-        onClick = { onDoneBtnClicked(drugs) },
-    ) {
-        Text(text = "Next")
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center,verticalAlignment = Alignment.Bottom)
+        {
+
+            OutlinedButton(
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Blue
+                ),
+
+                onClick = { onDoneBtnClicked(drugs) }, modifier = Modifier
+                    .width(110.dp)
+                    .height(50.dp)
+            ) {
+                Box(
+                    modifier = Modifier.padding(horizontal = 10.dp),
+                    contentAlignment = Alignment.Center
+                )
+                {
+                    Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 17.sp))
+                }
+            }
+        }
     }
 }
 
 
+
+@Composable
+fun SearchBar() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(80.dp)
+            .padding(10.dp)
+            .border(width = 1.dp, color = Color.Gray, shape = RoundedCornerShape(10.dp)),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxSize()
+                .padding(top = 2.dp),
+            verticalAlignment =Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Spacer(modifier = Modifier.width(0.1.dp))
+            Text(
+                text = "Search",style = TextStyle(fontSize = 20.sp),color = Color.Gray, textAlign = TextAlign.Start,
+
+                )
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Rounded.Search, contentDescription = "Search Icon")
+
+            }
+        }
+    }
+}
 @Composable
 fun ListItem(drug: Drug, viewModel: DrugViewModel) {
     Box(
@@ -69,16 +129,30 @@ fun ListItem(drug: Drug, viewModel: DrugViewModel) {
             .height(80.dp)
             .padding(10.dp)
     ) {
-        Row(modifier = Modifier
-            .fillMaxSize()
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
-            if(!viewModel.getSelectedDrugList().contains(drug)) {
-                OutlinedButton(onClick = { viewModel.selectDrug(drug) }) {
-                    Text(text = "Add")
+        Card(elevation = 10.dp,modifier = Modifier.fillMaxWidth()) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .fillMaxWidth(),
+                verticalAlignment =Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Spacer(modifier = Modifier.width(0.1.dp))
+
+                Image(modifier = Modifier
+                    .size(30.dp),
+                    painter = painterResource(id = R.drawable.drug2),
+                    contentDescription = "Drugs Logo")
+
+                Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
+
+                if (!viewModel.getSelectedDrugList().contains(drug)) {
+                    OutlinedButton(onClick = { viewModel.selectDrug(drug) },modifier = Modifier.height(40.dp)) {
+                        Text(text = "Add",fontSize = 17.sp)
+                    }
                 }
+                Spacer(modifier = Modifier.width(0.5.dp))
             }
         }
     }
