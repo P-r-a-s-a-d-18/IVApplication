@@ -18,9 +18,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.iv1.R
 import com.example.iv1.data.DataState
 import com.example.iv1.data.Drug
-import com.example.iv1.R
+import com.example.iv1.data.DrugViewModel
 
 @Composable
 fun SetData(
@@ -122,14 +123,20 @@ fun SearchBar() {
     }
 }
 @Composable
-fun ListItem(drug: Drug, viewModel: DrugViewModel) {
+fun ListItem(
+    drug: Drug,
+    viewModel: DrugViewModel
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(80.dp)
             .padding(10.dp)
     ) {
-        Card(elevation = 10.dp,modifier = Modifier.fillMaxWidth()) {
+        Card(
+            elevation = 10.dp,
+            modifier = Modifier.fillMaxWidth()
+        ) {
 
             Row(
                 modifier = Modifier
