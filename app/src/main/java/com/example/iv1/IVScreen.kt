@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.iv1.data.DrugViewModel
 import com.example.iv1.ui.*
 
 enum class IVScreen(@StringRes val title: Int) {
@@ -22,6 +23,7 @@ enum class IVScreen(@StringRes val title: Int) {
     DrugList(title = R.string.start),
     SelectedDrugs(title = R.string.review),
     Results(title = R.string.incomp_res),
+    ResultDetails(title = R.string.incomp_details),
     IRCalc(title = R.string.ir_calc)
 }
 
@@ -103,7 +105,18 @@ fun Start(
             }
 
             composable(route = IVScreen.Results.name) {
-                StartCheck(viewModel)
+                GetCheck(
+                    viewModel = viewModel,
+                    onElementClicked = {
+                        navController.navigate(IVScreen.ResultDetails.name)
+                    }
+                )
+            }
+
+            composable(route = IVScreen.ResultDetails.name) {
+                ResDetail(
+                    viewModel = viewModel
+                )
             }
 
             composable(route = IVScreen.IRCalc.name) {
