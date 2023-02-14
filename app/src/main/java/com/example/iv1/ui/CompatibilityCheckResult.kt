@@ -38,7 +38,7 @@ fun DisplayItem(
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(18.dp)
-        .wrapContentSize()
+        .height(50.dp)
         .clickable {
             onElementClicked(pair)
             viewModel.setPair(pair)

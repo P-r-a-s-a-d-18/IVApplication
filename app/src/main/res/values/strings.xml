@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">IV Application</string>
     <string name="start">Drug List</string>
+    <string name="drug_info">Drug Details</string>
     <string name="review">Selected Drugs</string>
     <string name="incomp_res">Incompatibility Check</string>
     <string name="incomp_details">Incompatibility Details</string>
