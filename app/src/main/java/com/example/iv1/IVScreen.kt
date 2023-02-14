@@ -17,10 +17,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.iv1.data.DrugViewModel
 import com.example.iv1.ui.*
+import com.example.iv1.ui.theme.DisplayDrug
 
 enum class IVScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),
     DrugList(title = R.string.start),
+    DrugInfo(title = R.string.drug_info),
     SelectedDrugs(title = R.string.review),
     Results(title = R.string.incomp_res),
     ResultDetails(title = R.string.incomp_details),
@@ -87,6 +89,9 @@ fun Start(
                     viewModel = viewModel,
                     onDoneBtnClicked = {
                         navController.navigate(IVScreen.SelectedDrugs.name)
+                    },
+                    onListItemClicked = {
+                        navController.navigate(IVScreen.DrugInfo.name)
                     }
                 )
             }
@@ -121,6 +126,10 @@ fun Start(
 
             composable(route = IVScreen.IRCalc.name) {
                 IRScreen()
+            }
+
+            composable(route = IVScreen.DrugInfo.name) {
+                DisplayDrug(viewModel = viewModel)
             }
         }
     }
