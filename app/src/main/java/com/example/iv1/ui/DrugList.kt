@@ -2,7 +2,6 @@ package com.example.iv1.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,9 +18,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.iv1.R
 import com.example.iv1.data.DataState
 import com.example.iv1.data.Drug
+import com.example.iv1.R
 import com.example.iv1.data.DrugViewModel
 
 @Composable
@@ -37,7 +36,7 @@ fun SetData(
             }
         }
         is DataState.Success -> {
-            ShowDrugList(result.data, onDoneBtnClicked = onDoneBtnClicked, onListItemClicked, viewModel)
+            ShowDrugList(result.data, onDoneBtnClicked = onDoneBtnClicked, viewModel)
         }
         is DataState.Failure -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -52,56 +51,52 @@ fun SetData(
     }
 }
 
-
 @Composable
 fun ShowDrugList(
     drugs: ArrayList<Drug>,
     onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
-    onListItemClicked: () -> Unit,
     viewModel: DrugViewModel
 ) {
-    Column(modifier = Modifier.padding(10.dp)) {
+    Column(modifier = Modifier.padding(10.dp).height(640.dp)) {
         SearchBar()
-
-        Spacer(modifier = Modifier.height(10.dp))
 
         LazyColumn {
             items(drugs) { drug ->
-                ListItem(drug, viewModel, onListItemClicked)
+                ListItem(drug, viewModel)
             }
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center,verticalAlignment = Alignment.Bottom)
-        {
+    }
+    Spacer(modifier = Modifier.height(10.dp))
 
-            OutlinedButton(
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Blue
-                ),
-
-                onClick = { onDoneBtnClicked(drugs) }, modifier = Modifier
-                    .width(110.dp)
-                    .height(50.dp)
-            ) {
-                Box(
-                    modifier = Modifier.padding(horizontal = 10.dp),
-                    contentAlignment = Alignment.Center
-                )
-                {
-                    Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 17.sp))
-                }
+    Row(modifier = Modifier.fillMaxSize(1f),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.Bottom)
+    {
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Blue
+            ),
+            onClick = { onDoneBtnClicked(drugs) }, modifier = Modifier
+                .width(110.dp)
+                .height(47.dp)
+        ) {
+            Box(
+                modifier = Modifier.padding(horizontal = 10.dp),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 18.sp))
             }
         }
     }
 }
-
-
 
 @Composable
 fun SearchBar() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .height(70.dp)
             .padding(10.dp)
             .border(width = 1.dp, color = Color.Gray, shape = RoundedCornerShape(10.dp)),
     ) {
@@ -109,7 +104,7 @@ fun SearchBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxSize()
-                .padding(top = 2.dp),
+                .padding(2.dp),
             verticalAlignment =Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -126,37 +121,25 @@ fun SearchBar() {
     }
 }
 @Composable
-fun ListItem(
-    drug: Drug,
-    viewModel: DrugViewModel,
-    onListItemClicked: () -> Unit
-) {
+fun ListItem(drug: Drug, viewModel: DrugViewModel) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(80.dp)
             .padding(10.dp)
     ) {
-        Card(
-            elevation = 10.dp,
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Card(elevation = 10.dp,modifier = Modifier.fillMaxWidth()) {
 
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .fillMaxWidth()
-                    .clickable {
-                        onListItemClicked()
-                        viewModel.setDrug(drug)
-                               },
+                    .fillMaxWidth(),
                 verticalAlignment =Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Spacer(modifier = Modifier.width(0.1.dp))
 
-                Image(modifier = Modifier
-                    .size(30.dp),
+                Image(modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.drug2),
                     contentDescription = "Drugs Logo")
 
