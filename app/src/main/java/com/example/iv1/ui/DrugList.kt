@@ -2,6 +2,7 @@ package com.example.iv1.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,7 +27,8 @@ import com.example.iv1.data.DrugViewModel
 @Composable
 fun SetData(
     viewModel: DrugViewModel,
-    onDoneBtnClicked: (ArrayList<Drug>) -> Unit
+    onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
+    onListItemClicked: () -> Unit
 ) {
     when(val result = viewModel.response.value) {
         is DataState.Loading -> {
@@ -35,7 +37,7 @@ fun SetData(
             }
         }
         is DataState.Success -> {
-            ShowDrugList(result.data, onDoneBtnClicked = onDoneBtnClicked, viewModel)
+            ShowDrugList(result.data, onDoneBtnClicked = onDoneBtnClicked, onListItemClicked, viewModel)
         }
         is DataState.Failure -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -55,6 +57,7 @@ fun SetData(
 fun ShowDrugList(
     drugs: ArrayList<Drug>,
     onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
+    onListItemClicked: () -> Unit,
     viewModel: DrugViewModel
 ) {
     Column(modifier = Modifier.padding(10.dp)) {
@@ -64,7 +67,7 @@ fun ShowDrugList(
 
         LazyColumn {
             items(drugs) { drug ->
-                ListItem(drug, viewModel)
+                ListItem(drug, viewModel, onListItemClicked)
             }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center,verticalAlignment = Alignment.Bottom)
@@ -125,7 +128,8 @@ fun SearchBar() {
 @Composable
 fun ListItem(
     drug: Drug,
-    viewModel: DrugViewModel
+    viewModel: DrugViewModel,
+    onListItemClicked: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -141,7 +145,11 @@ fun ListItem(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .clickable {
+                        onListItemClicked()
+                        viewModel.setDrug(drug)
+                               },
                 verticalAlignment =Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
