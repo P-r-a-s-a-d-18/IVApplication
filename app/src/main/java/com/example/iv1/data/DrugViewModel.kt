@@ -13,6 +13,8 @@ class DrugViewModel: ViewModel() {
 
     val tempList: ArrayList<Drug> = ArrayList()
 
+    var drugInfo: Drug = Drug()
+
     var drug1: Drug = Drug()
     var drug2: Drug = Drug()
 
@@ -42,6 +44,14 @@ class DrugViewModel: ViewModel() {
             }
 
         })
+    }
+
+    fun setDrug(drug: Drug) {
+        drugInfo = drug
+    }
+
+    fun getDrug(): Drug {
+        return drugInfo
     }
 
     fun selectDrug(drug: Drug) {
