@@ -34,7 +34,7 @@ fun StartScreen(
         horizontalAlignment =Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Image(modifier = Modifier
             .size(350.dp)
             .clip(RectangleShape)
@@ -54,17 +54,21 @@ fun StartScreen(
             style = TextStyle(fontSize = 17.sp)
         )
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         OutlinedButton(onClick = { onCompatibilityCheckButtonClicked()},
-            modifier = Modifier.height(60.dp)) {
+            modifier = Modifier.height(60.dp)
+           )
+        {
             Text(text = "Check Compatibility",fontSize = 20.sp)
         }
 
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         OutlinedButton(onClick = { onIRCalcButtonClicked() },
-            modifier = Modifier.height(60.dp)) {
+            modifier = Modifier.height(60.dp)
+            )
+        {
             Text(text = "Infusion Rate Calculator",fontSize = 20.sp)
         }
     }

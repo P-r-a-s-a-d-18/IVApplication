@@ -135,7 +135,6 @@ fun Start(
     }
 }
 
-
 private fun cancelAndNavigateToStart(
     navController: NavHostController,
     viewModel: DrugViewModel
