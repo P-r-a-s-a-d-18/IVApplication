@@ -87,6 +87,10 @@ class DrugViewModel: ViewModel() {
         drug2 = pair.second
     }
 
+    fun getAssertion(): Boolean {
+        return drug1.type_of_incompatibility.containsKey(drug2.drug_name)
+    }
+
     fun getResultObject(): ArrayList<HashMap<String, String>> {
         return drug1.type_of_incompatibility[drug2.drug_name]!!
     }

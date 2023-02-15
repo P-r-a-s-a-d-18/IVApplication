@@ -2,6 +2,7 @@ package com.example.iv1.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,9 +19,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.iv1.R
 import com.example.iv1.data.DataState
 import com.example.iv1.data.Drug
-import com.example.iv1.R
 import com.example.iv1.data.DrugViewModel
 
 @Composable
@@ -36,7 +37,7 @@ fun SetData(
             }
         }
         is DataState.Success -> {
-            ShowDrugList(result.data, onDoneBtnClicked = onDoneBtnClicked, viewModel)
+            ShowDrugList(result.data, onDoneBtnClicked = onDoneBtnClicked, onListItemClicked = onListItemClicked ,viewModel)
         }
         is DataState.Failure -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -55,6 +56,7 @@ fun SetData(
 fun ShowDrugList(
     drugs: ArrayList<Drug>,
     onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
+    onListItemClicked: () -> Unit,
     viewModel: DrugViewModel
 ) {
     Column(modifier = Modifier.padding(10.dp).height(630.dp)) {
@@ -62,7 +64,7 @@ fun ShowDrugList(
 
         LazyColumn {
             items(drugs) { drug ->
-                ListItem(drug, viewModel)
+                ListItem(drug, onListItemClicked, viewModel)
             }
         }
     }
@@ -121,14 +123,25 @@ fun SearchBar() {
     }
 }
 @Composable
-fun ListItem(drug: Drug, viewModel: DrugViewModel) {
+fun ListItem(
+    drug: Drug,
+    onListItemClicked: () -> Unit,
+    viewModel: DrugViewModel
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(80.dp)
             .padding(10.dp)
     ) {
-        Card(elevation = 10.dp,modifier = Modifier.fillMaxWidth()) {
+        Card(elevation = 10.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    viewModel.setDrug(drug)
+                    onListItemClicked()
+                }
+        ) {
 
             Row(
                 modifier = Modifier
