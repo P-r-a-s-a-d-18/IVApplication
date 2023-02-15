@@ -57,7 +57,7 @@ fun ShowDrugList(
     onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
     viewModel: DrugViewModel
 ) {
-    Column(modifier = Modifier.padding(10.dp).height(640.dp)) {
+    Column(modifier = Modifier.padding(10.dp).height(630.dp)) {
         SearchBar()
 
         LazyColumn {
@@ -68,7 +68,7 @@ fun ShowDrugList(
     }
     Spacer(modifier = Modifier.height(10.dp))
 
-    Row(modifier = Modifier.fillMaxSize(1f),
+    Row(modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.Bottom)
     {
@@ -146,7 +146,8 @@ fun ListItem(drug: Drug, viewModel: DrugViewModel) {
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
 
                 if (!viewModel.getSelectedDrugList().contains(drug)) {
-                    OutlinedButton(onClick = { viewModel.selectDrug(drug) },modifier = Modifier.height(40.dp)) {
+                    OutlinedButton(onClick = { viewModel.selectDrug(drug) },
+                        modifier = Modifier.height(40.dp)) {
                         Text(text = "Add",fontSize = 17.sp)
                     }
                 }

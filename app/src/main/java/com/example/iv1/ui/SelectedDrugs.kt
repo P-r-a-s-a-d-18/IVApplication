@@ -3,14 +3,12 @@ package com.example.iv1.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,7 +23,7 @@ fun ShowSelectedList(
     onCancelBtnClicked: () -> Unit = {},
     viewModel: DrugViewModel
 ) {
-    Column(modifier = Modifier.padding(10.dp)) {
+    Column(modifier = Modifier.padding(10.dp).height(625.dp)) {
         if (drugs.isEmpty() || drugs.size == 1) {
             Text(
                 text = "Not enough drugs to perform compatibility check.",
@@ -37,16 +35,15 @@ fun ShowSelectedList(
                     SelectedListItem(drug, viewModel)
                 }
             }
+        }
+    }
+            Spacer(modifier = Modifier.height(10.dp))
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.Bottom
             ) {
-                Box(
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    OutlinedButton(
+                    Button(
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = Color.Blue
                         ),
@@ -54,21 +51,21 @@ fun ShowSelectedList(
                             .width(210.dp)
                             .height(50.dp)
                     ) {
-                        Text(
-                            text = "Check Incompatibility",
-                            color = Color.White,
-                            style = TextStyle(fontSize = 18.sp)
-                        )
+                        Box(
+                            modifier = Modifier.padding(horizontal = 7.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "Check Incompatibility",
+                                color = Color.White,
+                                style = TextStyle(fontSize = 17.sp)
+                            )
+                        }
                     }
-                }
 
-                Spacer(modifier = Modifier.width(1.dp))
+              //  Spacer(modifier = Modifier.width(2.dp))
 
-                Box(
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    OutlinedButton(
+                    Button(
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = Color.Blue
                         ),
@@ -76,17 +73,19 @@ fun ShowSelectedList(
                             .width(110.dp)
                             .height(50.dp)
                     ) {
-                        Text(
-                            text = "Cancel",
-                            color = Color.White,
-                            style = TextStyle(fontSize = 18.sp)
-                        )
+                        Box(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "Cancel",
+                                color = Color.White,
+                                style = TextStyle(fontSize = 18.sp)
+                            )
+                        }
                     }
-                }
             }
         }
-    }
-}
 
 @Composable
 fun SelectedListItem(
@@ -96,20 +95,29 @@ fun SelectedListItem(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(90.dp)
             .padding(10.dp)
     ) {
-        Row(modifier = Modifier
-            .fillMaxSize()
-            .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment =Alignment.CenterVertically
-        ) {
-            Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
-            OutlinedButton(onClick = { viewModel.removeDrug(drug) }) {
-                Text(text = "Remove",fontSize = 17.sp)
+        Card(elevation = 10.dp,modifier = Modifier.fillMaxWidth()) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Spacer(modifier = Modifier.width(0.1.dp))
+
+                Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
+
+                Spacer(modifier = Modifier.width(20.dp))
+
+                OutlinedButton(onClick = { viewModel.removeDrug(drug) }) {
+                    Text(text = "Remove", fontSize = 17.sp)
+                }
+                Spacer(modifier = Modifier.width(0.2.dp))
             }
         }
-
     }
 }
