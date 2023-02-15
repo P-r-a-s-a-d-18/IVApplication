@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener
 class DrugViewModel: ViewModel() {
     val response: MutableState<DataState> = mutableStateOf(DataState.Empty)
 
-    val tempList: ArrayList<Drug> = ArrayList()
+    var tempList: ArrayList<Drug> = ArrayList()
 
     var drugInfo: Drug = Drug()
 

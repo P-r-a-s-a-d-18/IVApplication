@@ -1,28 +1,33 @@
 package com.example.iv1.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.R
 import com.example.iv1.data.DataState
 import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
+import java.util.*
 
 @Composable
 fun SetData(
@@ -37,7 +42,17 @@ fun SetData(
             }
         }
         is DataState.Success -> {
-            ShowDrugList(result.data, onDoneBtnClicked = onDoneBtnClicked, onListItemClicked = onListItemClicked ,viewModel)
+            val textState = remember { mutableStateOf(TextFieldValue("")) }
+            Column{
+                SearchView(textState)
+                ShowDrugList(
+                    result.data,
+                    state = textState,
+                    onDoneBtnClicked = onDoneBtnClicked,
+                    onListItemClicked = onListItemClicked,
+                    viewModel = viewModel
+                )
+            }
         }
         is DataState.Failure -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -57,13 +72,31 @@ fun ShowDrugList(
     drugs: ArrayList<Drug>,
     onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
     onListItemClicked: () -> Unit,
-    viewModel: DrugViewModel
+    viewModel: DrugViewModel,
+    state: MutableState<TextFieldValue>
 ) {
-    Column(modifier = Modifier.padding(10.dp).height(630.dp)) {
-        SearchBar()
+    var filteredDrugs: ArrayList<Drug>
+
+    Column(modifier = Modifier
+        .padding(10.dp)
+        .height(630.dp)) {
 
         LazyColumn {
-            items(drugs) { drug ->
+            val searchedText = state.value.text
+            filteredDrugs = if (searchedText.isEmpty()) {
+                drugs
+            } else {
+                val resultList = ArrayList<Drug>()
+                for (drug in drugs) {
+                    if (drug.drug_name.lowercase(Locale.getDefault())
+                            .contains(searchedText.lowercase(Locale.getDefault()))
+                    ) {
+                        resultList.add(drug)
+                    }
+                }
+                resultList
+            }
+            items(filteredDrugs) { drug ->
                 ListItem(drug, onListItemClicked, viewModel)
             }
         }
@@ -94,33 +127,55 @@ fun ShowDrugList(
 }
 
 @Composable
-fun SearchBar() {
-    Box(
+fun SearchView(state: MutableState<TextFieldValue>) {
+    TextField(
+        value = state.value,
+        onValueChange = { value ->
+            state.value = value
+        },
         modifier = Modifier
-            .fillMaxWidth()
-            .height(70.dp)
-            .padding(10.dp)
-            .border(width = 1.dp, color = Color.Gray, shape = RoundedCornerShape(10.dp)),
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxSize()
-                .padding(2.dp),
-            verticalAlignment =Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Spacer(modifier = Modifier.width(0.1.dp))
-            Text(
-                text = "Search",style = TextStyle(fontSize = 20.sp),color = Color.Gray, textAlign = TextAlign.Start,
-
-                )
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Rounded.Search, contentDescription = "Search Icon")
-
+            .fillMaxWidth(),
+        textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
+        leadingIcon = {
+            Icon(
+                Icons.Default.Search,
+                contentDescription = "",
+                modifier = Modifier
+                    .padding(15.dp)
+                    .size(24.dp)
+            )
+        },
+        trailingIcon = {
+            if (state.value != TextFieldValue("")) {
+                IconButton(
+                    onClick = {
+                        state.value =
+                            TextFieldValue("") // Remove text from TextField when you press the 'X' icon
+                    }
+                ) {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = "",
+                        modifier = Modifier
+                            .padding(15.dp)
+                            .size(24.dp)
+                    )
+                }
             }
-        }
-    }
+        },
+        singleLine = true,
+        shape = RectangleShape, // The TextFiled has rounded corners top left and right by default
+        colors = TextFieldDefaults.textFieldColors(
+            textColor = Color.Black,
+            cursorColor = Color.Black,
+            leadingIconColor = Color.Black,
+            trailingIconColor = Color.Black,
+            backgroundColor = colorResource(id = R.color.white),
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            disabledIndicatorColor = Color.Black
+        )
+    )
 }
 @Composable
 fun ListItem(
@@ -148,7 +203,7 @@ fun ListItem(
                     .fillMaxSize()
                     .fillMaxWidth(),
                 verticalAlignment =Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Spacer(modifier = Modifier.width(0.1.dp))
 
