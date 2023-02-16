@@ -27,7 +27,7 @@ fun ShowSelectedList(
         .fillMaxSize(0.93f)) {
         if (drugs.isEmpty() || drugs.size == 1) {
             Text(
-                text = "Not enough drugs to perform compatibility check.",
+                text = "Select drugs to perform compatibility check.",
                 textAlign = TextAlign.Center
             )
         } else {
