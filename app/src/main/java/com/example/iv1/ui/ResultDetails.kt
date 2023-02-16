@@ -10,7 +10,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.iv1.data.DrugViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -47,14 +50,21 @@ fun ResDetail(viewModel: DrugViewModel) {
 @Composable
 fun DisplayData(it: HashMap<String, String>) {
     Spacer(modifier = Modifier.height(8.dp))
-    Text(text = "Type", fontSize = MaterialTheme.typography.h5.fontSize)
-    Text(text = it["Type"].toString(), fontSize = MaterialTheme.typography.h6.fontSize)
-    Spacer(modifier = Modifier.height(5.dp))
-    Text(text = "Effect", fontSize = MaterialTheme.typography.h5.fontSize)
-    Text(text = it["Effect"].toString(), fontSize = MaterialTheme.typography.h6.fontSize)
+
+    Column(modifier = Modifier.fillMaxSize(),
+    verticalArrangement = Arrangement.SpaceEvenly) {
+        Text(text = "Type", fontSize = MaterialTheme.typography.h5.fontSize)
+        Text(text = it["Type"].toString(), fontSize = MaterialTheme.typography.h6.fontSize)
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(text = "Effect", fontSize = MaterialTheme.typography.h5.fontSize)
+        Text(text = it["Effect"].toString(), fontSize = MaterialTheme.typography.h6.fontSize)
+    }
 }
 
 @Composable
 fun DisplayMessage() {
-    Text(text = "No Information Available !!")
+    Text(modifier = Modifier.padding(10.dp),
+        text = "No Information Available !!",
+        style = TextStyle(fontSize = 17.sp,
+        textAlign = TextAlign.Center))
 }

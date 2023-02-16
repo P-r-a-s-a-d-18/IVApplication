@@ -59,7 +59,10 @@ fun ShowDrugList(
     onListItemClicked: () -> Unit,
     viewModel: DrugViewModel
 ) {
-    Column(modifier = Modifier.padding(10.dp).height(630.dp)) {
+    Column(modifier = Modifier
+        .padding(10.dp)
+        .fillMaxWidth()
+        .fillMaxSize(0.93f)) {
         SearchBar()
 
         LazyColumn {
@@ -122,6 +125,7 @@ fun SearchBar() {
         }
     }
 }
+
 @Composable
 fun ListItem(
     drug: Drug,
@@ -152,9 +156,11 @@ fun ListItem(
             ) {
                 Spacer(modifier = Modifier.width(0.1.dp))
 
-                Image(modifier = Modifier.size(30.dp),
+                Image(
+                    modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.drug2),
-                    contentDescription = "Drugs Logo")
+                    contentDescription = "Drugs Logo"
+                )
 
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
 
