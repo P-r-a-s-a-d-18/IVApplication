@@ -9,6 +9,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +30,7 @@ import com.example.iv1.data.DataState
 import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Composable
 fun SetData(
@@ -203,13 +206,15 @@ fun ListItem(
                     .fillMaxSize()
                     .fillMaxWidth(),
                 verticalAlignment =Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Spacer(modifier = Modifier.width(0.1.dp))
+              //  Spacer(modifier = Modifier.width(0.1.dp))
 
-                Image(modifier = Modifier.size(30.dp),
+                Image(
+                    modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.drug2),
-                    contentDescription = "Drugs Logo")
+                    contentDescription = "Drugs Logo"
+                )
 
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
 
@@ -217,6 +222,13 @@ fun ListItem(
                     OutlinedButton(onClick = { viewModel.selectDrug(drug) },
                         modifier = Modifier.height(40.dp)) {
                         Text(text = "Add",fontSize = 17.sp)
+                    }
+                }
+                    else{
+                        Icon(imageVector = Icons.Default.Check, contentDescription = "Selected",
+                        tint=Color.Blue,
+                        modifier = Modifier.size(30.dp))
+
                     }
                 }
                 Spacer(modifier = Modifier.width(0.5.dp))

@@ -5,13 +5,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
 
@@ -21,7 +24,11 @@ fun GetCheck(
     onElementClicked: (Pair<Drug, Drug>) -> Unit
 ) {
     if (viewModel.tempList.isEmpty() || viewModel.tempList.size == 1) {
-        Text(text = "Not enough drugs selected to check compatibility !!", fontSize = MaterialTheme.typography.h5.fontSize)
+        Text(modifier = Modifier.padding(10.dp),
+            text = "Not enough drugs selected to check compatibility.",
+            style = TextStyle(fontSize = 17.sp,
+                textAlign = TextAlign.Center)
+        )
     } else {
         LazyColumn {
             items(viewModel.getToCheck()) { pair ->
@@ -42,24 +49,27 @@ fun DisplayItem(
     Column(modifier = Modifier.padding(10.dp)) {
         Box(modifier = Modifier
             .fillMaxWidth()
-            .fillMaxSize()
-            .fillMaxHeight()
+            .height(70.dp)
+            .padding(vertical = 7.dp)
             .clickable {
                 onElementClicked(pair)
                 viewModel.setPair(pair)
             }
         ) {
             Card(
-                modifier = Modifier.fillMaxWidth().fillMaxSize().padding(vertical = 7.dp),
-                backgroundColor = Color.LightGray.copy(alpha = ContentAlpha.medium)
+                elevation = 10.dp,
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                backgroundColor = Color.LightGray
             ) {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .fillMaxSize()
-                        .padding(vertical = 7.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .fillMaxWidth(),
+                       // .padding(7.dp)
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Spacer(modifier = Modifier.width(0.1.dp))
                     Text(
                         text = pair.first.drug_name + " -- " + pair.second.drug_name,
                         fontSize = MaterialTheme.typography.h5.fontSize
@@ -70,3 +80,4 @@ fun DisplayItem(
         }
     }
 }
+
