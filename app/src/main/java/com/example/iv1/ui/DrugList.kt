@@ -104,11 +104,12 @@ fun ShowDrugList(
             }
         }
     }
+    Spacer(modifier = Modifier.height(10.dp))
 
     Row(modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.Bottom)
-    {
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Button(
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Blue
@@ -117,13 +118,7 @@ fun ShowDrugList(
                 .width(110.dp)
                 .height(50.dp)
         ) {
-            Box(
-                modifier = Modifier.padding(horizontal = 10.dp),
-                contentAlignment = Alignment.Center
-            )
-            {
                 Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 18.sp))
-            }
         }
     }
 }
@@ -199,6 +194,7 @@ fun ListItem(
                     onListItemClicked()
                 }
         ) {
+
             Row(
                 modifier = Modifier
                     .fillMaxSize()

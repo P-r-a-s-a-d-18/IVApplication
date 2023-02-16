@@ -114,6 +114,9 @@ fun Start(
                     viewModel = viewModel,
                     onElementClicked = {
                         navController.navigate(IVScreen.ResultDetails.name)
+                    },
+                    onCancelBtnClicked = {
+                        cancelAndNavigateToStart(navController, viewModel)
                     }
                 )
             }

@@ -12,6 +12,7 @@ import com.example.iv1.ui.theme.IV1Theme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        actionBar?.hide()
         setContent {
             IV1Theme {
                 Surface(

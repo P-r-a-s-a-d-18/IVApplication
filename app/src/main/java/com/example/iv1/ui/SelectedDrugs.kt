@@ -55,16 +55,11 @@ fun ShowSelectedList(
                             .width(220.dp)
                             .height(50.dp)
                     ) {
-                        Box(
-                            modifier = Modifier.padding(horizontal = 7.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "Check Incompatibility",
-                                color = Color.White,
-                                style = TextStyle(fontSize = 18.sp)
-                            )
-                        }
+                        Text(
+                            text = "Check Incompatibility",
+                            color = Color.White,
+                            style = TextStyle(fontSize = 18.sp)
+                        )
                     }
 
               //  Spacer(modifier = Modifier.width(2.dp))
@@ -77,16 +72,11 @@ fun ShowSelectedList(
                             .width(110.dp)
                             .height(50.dp)
                     ) {
-                        Box(
-                            modifier = Modifier.padding(horizontal = 8.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "Cancel",
-                                color = Color.White,
-                                style = TextStyle(fontSize = 18.sp)
-                            )
-                        }
+                        Text(
+                            text = "Cancel",
+                            color = Color.White,
+                            style = TextStyle(fontSize = 18.sp)
+                        )
                     }
             }
         }
