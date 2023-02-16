@@ -7,10 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -30,7 +29,6 @@ import com.example.iv1.data.DataState
 import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 @Composable
 fun SetData(
@@ -82,7 +80,8 @@ fun ShowDrugList(
 
     Column(modifier = Modifier
         .padding(10.dp)
-        .height(630.dp)) {
+        .height(630.dp)
+    ) {
 
         LazyColumn {
             val searchedText = state.value.text
@@ -219,7 +218,10 @@ fun ListItem(
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
 
                 if (!viewModel.getSelectedDrugList().contains(drug)) {
-                    OutlinedButton(onClick = { viewModel.selectDrug(drug) },
+                    OutlinedButton(
+                        onClick = {
+                            viewModel.selectDrug(drug)
+                        },
                         modifier = Modifier.height(40.dp)) {
                         Text(text = "Add",fontSize = 17.sp)
                     }
@@ -232,7 +234,6 @@ fun ListItem(
                     }
                 }
                 Spacer(modifier = Modifier.width(0.5.dp))
-            }
         }
     }
 }
