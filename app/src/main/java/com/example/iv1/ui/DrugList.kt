@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -146,15 +147,14 @@ fun ListItem(
                     onListItemClicked()
                 }
         ) {
-
             Row(
                 modifier = Modifier
                     .fillMaxSize()
                     .fillMaxWidth(),
                 verticalAlignment =Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Spacer(modifier = Modifier.width(0.1.dp))
+              //  Spacer(modifier = Modifier.width(0.1.dp))
 
                 Image(
                     modifier = Modifier.size(30.dp),
@@ -170,8 +170,14 @@ fun ListItem(
                         Text(text = "Add",fontSize = 17.sp)
                     }
                 }
+                    else{
+                        Icon(imageVector = Icons.Default.Check, contentDescription = "Selected",
+                        tint=Color.Blue,
+                        modifier = Modifier.size(30.dp))
+
+                    }
+                }
                 Spacer(modifier = Modifier.width(0.5.dp))
             }
         }
     }
-}
