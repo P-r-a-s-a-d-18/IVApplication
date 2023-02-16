@@ -104,7 +104,8 @@ fun SelectedListItem(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -112,7 +113,7 @@ fun SelectedListItem(
 
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
 
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.weight(1f))
 
                 OutlinedButton(onClick = { viewModel.removeDrug(drug) }) {
                     Text(text = "Remove", fontSize = 17.sp)
