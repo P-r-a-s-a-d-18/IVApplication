@@ -203,11 +203,12 @@ fun ListItem(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 verticalAlignment =Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-              //  Spacer(modifier = Modifier.width(0.1.dp))
+                Spacer(modifier = Modifier.width(0.1.dp))
 
                 Image(
                     modifier = Modifier.size(30.dp),
@@ -215,7 +216,11 @@ fun ListItem(
                     contentDescription = "Drugs Logo"
                 )
 
+                Spacer(modifier = Modifier.width(1.dp))
+
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
+                
+                Spacer(modifier = Modifier.weight(1f))
 
                 if (!viewModel.getSelectedDrugList().contains(drug)) {
                     OutlinedButton(
