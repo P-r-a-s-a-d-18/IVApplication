@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.data.Drug
@@ -27,8 +27,11 @@ fun ShowSelectedList(
         .fillMaxSize(0.93f)) {
         if (drugs.isEmpty() || drugs.size == 1) {
             Text(
-                text = "Select drugs to perform compatibility check.",
-                textAlign = TextAlign.Center
+                modifier = Modifier.padding(10.dp),
+                fontFamily = FontFamily.Serif,
+                lineHeight = 30.sp,
+                text = "Not enough drugs to perform compatibility check.",
+                style = TextStyle(fontSize = 20.sp)
             )
         } else {
             LazyColumn {
@@ -41,7 +44,7 @@ fun ShowSelectedList(
             Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceAround,
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.Bottom
             ) {
                     Button(
@@ -49,7 +52,7 @@ fun ShowSelectedList(
                             backgroundColor = Color.Blue
                         ),
                         onClick = { onCheckBtnClicked(drugs) }, modifier = Modifier
-                            .width(210.dp)
+                            .width(220.dp)
                             .height(50.dp)
                     ) {
                         Box(
@@ -59,7 +62,7 @@ fun ShowSelectedList(
                             Text(
                                 text = "Check Incompatibility",
                                 color = Color.White,
-                                style = TextStyle(fontSize = 17.sp)
+                                style = TextStyle(fontSize = 18.sp)
                             )
                         }
                     }
@@ -104,21 +107,21 @@ fun SelectedListItem(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .fillMaxWidth()
-                    .padding(8.dp),
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Spacer(modifier = Modifier.width(0.1.dp))
+                Spacer(modifier = Modifier.width(20.dp))
 
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
 
+               // Spacer(modifier = Modifier.width(20.dp))
                 Spacer(modifier = Modifier.weight(1f))
 
                 OutlinedButton(onClick = { viewModel.removeDrug(drug) }) {
                     Text(text = "Remove", fontSize = 17.sp)
                 }
-                Spacer(modifier = Modifier.width(0.2.dp))
+                Spacer(modifier = Modifier.width(15.dp))
             }
         }
     }

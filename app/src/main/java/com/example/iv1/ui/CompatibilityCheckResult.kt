@@ -1,10 +1,12 @@
 package com.example.iv1.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.data.Drug
@@ -24,10 +26,12 @@ fun GetCheck(
     onElementClicked: (Pair<Drug, Drug>) -> Unit
 ) {
     if (viewModel.tempList.isEmpty() || viewModel.tempList.size == 1) {
-        Text(modifier = Modifier.padding(10.dp),
+        Text(
+            modifier = Modifier.padding(15.dp),
+            fontFamily = FontFamily.Serif,
+            lineHeight = 30.sp,
             text = "Not enough drugs selected to check compatibility.",
-            style = TextStyle(fontSize = 17.sp,
-                textAlign = TextAlign.Center)
+            style = TextStyle(fontSize = 20.sp)
         )
     } else {
         LazyColumn {
@@ -59,6 +63,7 @@ fun DisplayItem(
             Card(
                 elevation = 10.dp,
                 modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                border = BorderStroke(1.dp,Color.LightGray.copy(alpha = ContentAlpha.medium)),
                 backgroundColor = Color.LightGray
             ) {
                 Row(

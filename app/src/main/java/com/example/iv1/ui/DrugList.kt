@@ -80,7 +80,8 @@ fun ShowDrugList(
 
     Column(modifier = Modifier
         .padding(10.dp)
-        .height(630.dp)
+        .fillMaxWidth()
+        .fillMaxSize(0.93f)
     ) {
 
         LazyColumn {
@@ -103,7 +104,6 @@ fun ShowDrugList(
             }
         }
     }
-    Spacer(modifier = Modifier.height(10.dp))
 
     Row(modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
@@ -115,7 +115,7 @@ fun ShowDrugList(
             ),
             onClick = { onDoneBtnClicked(drugs) }, modifier = Modifier
                 .width(110.dp)
-                .height(47.dp)
+                .height(50.dp)
         ) {
             Box(
                 modifier = Modifier.padding(horizontal = 10.dp),
@@ -199,7 +199,6 @@ fun ListItem(
                     onListItemClicked()
                 }
         ) {
-
             Row(
                 modifier = Modifier
                     .fillMaxSize()
@@ -208,15 +207,14 @@ fun ListItem(
                 verticalAlignment =Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Spacer(modifier = Modifier.width(0.1.dp))
+                Spacer(modifier = Modifier.width(5.dp))
 
                 Image(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.drug2),
                     contentDescription = "Drugs Logo"
                 )
-
-                Spacer(modifier = Modifier.width(1.dp))
+                Spacer(modifier = Modifier.width(15.dp))
 
                 Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
                 
@@ -238,7 +236,7 @@ fun ListItem(
 
                     }
                 }
-                Spacer(modifier = Modifier.width(0.5.dp))
+                Spacer(modifier = Modifier.width(20.dp))
         }
     }
 }

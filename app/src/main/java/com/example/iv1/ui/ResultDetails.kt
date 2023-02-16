@@ -19,6 +19,11 @@ import com.example.iv1.data.DrugViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ResDetail(viewModel: DrugViewModel) {
+    Column(modifier = Modifier
+        .padding(10.dp)
+        .fillMaxWidth()
+        .fillMaxSize()) {
+        Spacer(modifier = Modifier.height(10.dp))
     if (viewModel.getAssertion()) {
         LazyColumn {
             viewModel.getResultObject().forEach { obj ->
@@ -45,8 +50,8 @@ fun ResDetail(viewModel: DrugViewModel) {
     } else {
         DisplayMessage()
     }
+  }
 }
-
 @Composable
 fun DisplayData(it: HashMap<String, String>) {
     Spacer(modifier = Modifier.height(8.dp))
@@ -65,6 +70,6 @@ fun DisplayData(it: HashMap<String, String>) {
 fun DisplayMessage() {
     Text(modifier = Modifier.padding(10.dp),
         text = "No Information Available !!",
-        style = TextStyle(fontSize = 17.sp,
+        style = TextStyle(fontSize = 20.sp,
         textAlign = TextAlign.Center))
 }
