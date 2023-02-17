@@ -1,6 +1,7 @@
 package com.example.iv1.ui
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
@@ -42,7 +44,8 @@ fun IRScreen() {
 
     Column(
         modifier = Modifier.padding(32.dp),
-        Arrangement.spacedBy(8.dp)
+        Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.ir_calc),
@@ -63,8 +66,7 @@ fun IRScreen() {
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             )
         )
-
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         EditNumberField(label = R.string.ir_time,
             value = timeInput,
@@ -77,7 +79,6 @@ fun IRScreen() {
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             )
         )
-
         Spacer(modifier = Modifier.height(12.dp))
 
 //        EditNumberField(label = R.string.ir_drop_factor,
@@ -91,7 +92,6 @@ fun IRScreen() {
 //                onDone = { focusManager.clearFocus(true) }
 //            )
 //        )
-
         val dropFactor = dropFactorMenu()
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -119,15 +119,16 @@ fun EditNumberField(@StringRes label: Int,
                     value: String,
                     onValueChange: (String) -> Unit,
                     keyboardOptions: KeyboardOptions,
-                    keyboardActions: KeyboardActions,
-                    ) {
+                    keyboardActions: KeyboardActions
+) {
     TextField(
         value = value,
         onValueChange = onValueChange,
+        Modifier.background(color = Color.LightGray.copy(alpha = 0.1f)),
         label = { Text (
             text = stringResource(id = label),
-            modifier = Modifier.fillMaxWidth()
-            )
+            modifier = Modifier.width(200.dp)
+        )
         },
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -184,4 +185,3 @@ fun dropFactorMenu(): Int {
     }
     return mSelectedText.toIntOrNull()?: 0
 }
-

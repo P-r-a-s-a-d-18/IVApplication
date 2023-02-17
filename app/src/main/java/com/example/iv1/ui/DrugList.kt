@@ -105,8 +105,6 @@ fun ShowDrugList(
             }
         }
     }
-    Spacer(modifier = Modifier.height(10.dp))
-
     Row(modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -132,7 +130,7 @@ fun SearchView(state: MutableState<TextFieldValue>) {
             state.value = value
         },
         modifier = Modifier
-            .fillMaxWidth(),
+           .fillMaxWidth(),
         textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
         leadingIcon = {
             Icon(
@@ -141,6 +139,12 @@ fun SearchView(state: MutableState<TextFieldValue>) {
                 modifier = Modifier
                     .padding(15.dp)
                     .size(24.dp)
+            )
+        },
+        placeholder = {
+            Text(
+                text = "Search drug",
+                style = TextStyle(fontSize = 16.sp)
             )
         },
         trailingIcon = {
@@ -175,6 +179,8 @@ fun SearchView(state: MutableState<TextFieldValue>) {
         )
     )
 }
+
+
 @Composable
 fun ListItem(
     drug: Drug,
