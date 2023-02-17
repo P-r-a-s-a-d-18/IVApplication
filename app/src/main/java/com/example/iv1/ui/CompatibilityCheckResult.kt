@@ -26,21 +26,44 @@ import com.example.iv1.ui.theme.color_g
 @Composable
 fun GetCheck(
     viewModel: DrugViewModel,
-    onElementClicked: (Pair<Drug, Drug>) -> Unit
+    onElementClicked: (Pair<Drug, Drug>) -> Unit,
+    onBackBtnClicked: () -> Unit
 ) {
-    if (viewModel.tempList.isEmpty() || viewModel.tempList.size == 1) {
-        Text(
-            modifier = Modifier.padding(15.dp),
-            fontFamily = FontFamily.Serif,
-            lineHeight = 30.sp,
-            text = "Not enough drugs selected to check compatibility.",
-            style = TextStyle(fontSize = 20.sp)
-        )
-    } else {
-        LazyColumn {
-            items(viewModel.getToCheck()) { pair ->
-                DisplayItem(pair, onElementClicked, viewModel)
+    Column(modifier = Modifier
+        .padding(10.dp)
+        .fillMaxWidth()
+        .fillMaxSize(0.93f)
+    )
+    {
+        if (viewModel.tempList.isEmpty() || viewModel.tempList.size == 1) {
+            Text(
+                modifier = Modifier.padding(15.dp),
+                fontFamily = FontFamily.Serif,
+                lineHeight = 30.sp,
+                text = "Not enough drugs selected to check compatibility.",
+                style = TextStyle(fontSize = 20.sp)
+            )
+        } else {
+            LazyColumn {
+                items(viewModel.getToCheck()) { pair ->
+                    DisplayItem(pair, onElementClicked, viewModel)
+                }
             }
+        }
+    }
+    Row(modifier = Modifier.fillMaxSize().padding(bottom = 5.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.Bottom
+    ) {
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Blue
+            ),
+            onClick = { onBackBtnClicked() }, modifier = Modifier
+                .width(110.dp)
+                .height(50.dp)
+        ) {
+            Text(text = "Home", color = Color.White, style = TextStyle(fontSize = 18.sp))
         }
     }
 }
@@ -81,14 +104,15 @@ fun DisplayItem(
                                     color_g
                                 )
                             )
-                        ),
+                        )
+                        .padding(8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Spacer(modifier = Modifier.width(1.dp))
                     Text(
                         text = pair.first.drug_name + " with " + pair.second.drug_name,
-                        fontSize = MaterialTheme.typography.h6.fontSize,
+                        fontSize = MaterialTheme.typography.subtitle1.fontSize,
                         color = Color.Black
                     )
                     Spacer(modifier = Modifier.weight(0.3f))

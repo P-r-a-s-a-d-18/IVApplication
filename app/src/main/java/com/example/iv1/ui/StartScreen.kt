@@ -5,21 +5,22 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.OutlinedButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.R
+import com.example.iv1.ui.components.GradientButton
 
 @Composable
 fun StartScreen(
@@ -27,6 +28,8 @@ fun StartScreen(
     onCompatibilityCheckButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ){
+    val gradient =
+        Brush.horizontalGradient(listOf(Color(0xFFAFCAE9), Color(0xFF83AEF8)))
     LazyColumn() {
         items(1) {
             Column(
@@ -53,34 +56,44 @@ fun StartScreen(
                 Spacer(modifier = Modifier.height(15.dp))
 
                 Text(
-                    text = "Welcome to NeoCheck where you can check compatibility of IV Fluids",
+                    text = "Welcome to NeoCheck",
                     color = Color.DarkGray,
                     fontFamily = FontFamily.Serif,
                     lineHeight = 30.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(fontSize = 17.sp)
+                    fontSize = MaterialTheme.typography.h6.fontSize
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                OutlinedButton(
-                    onClick = { onCompatibilityCheckButtonClicked() },
-                    modifier = Modifier.height(60.dp)
+                GradientButton(
+                    text = "Check Compatibility",
+                    gradient = gradient,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(65.dp)
+                        .padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp
+                        ),
+                    onClick = { onCompatibilityCheckButtonClicked() }
                 )
-                {
-                    Text(text = "Check Compatibility", fontSize = 20.sp)
-                }
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                OutlinedButton(
-                    onClick = { onIRCalcButtonClicked() },
-                    modifier = Modifier.height(60.dp)
+                GradientButton(
+                    text = "IR Calculator",
+                    gradient = gradient,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(65.dp)
+                        .padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp
+                        ),
+                    onClick = { onIRCalcButtonClicked() }
                 )
-                {
-                    Text(text = "Infusion Rate Calculator", fontSize = 20.sp)
-                }
             }
         }
     }

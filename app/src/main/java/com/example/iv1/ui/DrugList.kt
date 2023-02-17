@@ -105,9 +105,9 @@ fun ShowDrugList(
             }
         }
     }
-    Row(modifier = Modifier.fillMaxSize(),
+    Row(modifier = Modifier.fillMaxSize().padding(bottom = 5.dp),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.Bottom
     ) {
         Button(
             colors = ButtonDefaults.buttonColors(
@@ -143,7 +143,7 @@ fun SearchView(state: MutableState<TextFieldValue>) {
         },
         placeholder = {
             Text(
-                text = "Search drug",
+                text = "Search Drug",
                 style = TextStyle(fontSize = 16.sp)
             )
         },
