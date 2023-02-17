@@ -5,10 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,17 +68,19 @@ fun DisplayItem(
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
-                        .fillMaxWidth(),
-                       // .padding(7.dp)
+                        .fillMaxWidth()
+                        .padding(7.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Spacer(modifier = Modifier.width(0.1.dp))
                     Text(
-                        text = pair.first.drug_name + " -- " + pair.second.drug_name,
-                        fontSize = MaterialTheme.typography.h5.fontSize
+                        text = pair.first.drug_name + " with " + pair.second.drug_name,
+                        fontSize = MaterialTheme.typography.h6.fontSize
                     )
-                    Text(text = " > ", fontSize = MaterialTheme.typography.h5.fontSize)
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "View Details")
                 }
             }
         }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -33,7 +34,7 @@ import java.util.*
 @Composable
 fun SetData(
     viewModel: DrugViewModel,
-    onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
+    onDoneBtnClicked: (MutableList<Drug>) -> Unit,
     onListItemClicked: () -> Unit
 ) {
     when(val result = viewModel.response.value) {
@@ -70,13 +71,13 @@ fun SetData(
 
 @Composable
 fun ShowDrugList(
-    drugs: ArrayList<Drug>,
-    onDoneBtnClicked: (ArrayList<Drug>) -> Unit,
+    drugs:MutableList<Drug>,
+    onDoneBtnClicked: (MutableList<Drug>) -> Unit,
     onListItemClicked: () -> Unit,
     viewModel: DrugViewModel,
     state: MutableState<TextFieldValue>
 ) {
-    var filteredDrugs: ArrayList<Drug>
+    var filteredDrugs: MutableList<Drug>
 
     Column(modifier = Modifier
         .padding(10.dp)
@@ -217,17 +218,13 @@ fun ListItem(
                 Spacer(modifier = Modifier.weight(1f))
 
                 if (!viewModel.getSelectedDrugList().contains(drug)) {
-                    OutlinedButton(
-                        onClick = {
-                            viewModel.selectDrug(drug)
-                        },
-                        modifier = Modifier.height(40.dp)) {
-                        Text(text = "Add",fontSize = 17.sp)
+                    IconButton(onClick = { viewModel.selectDrug(drug) }) {
+                        Icon(imageVector = Icons.Default.AddCircle, contentDescription = "Select ${drug.drug_name}")
                     }
                 }
                     else{
                         Icon(imageVector = Icons.Default.Check, contentDescription = "Selected",
-                        tint=Color.Blue,
+                        tint=Color.Green,
                         modifier = Modifier.size(30.dp))
 
                     }

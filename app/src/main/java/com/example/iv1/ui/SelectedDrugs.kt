@@ -3,7 +3,10 @@ package com.example.iv1.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,24 +20,27 @@ import com.example.iv1.data.DrugViewModel
 
 @Composable
 fun ShowSelectedList(
-    drugs: ArrayList<Drug>,
-    onCheckBtnClicked: (ArrayList<Drug>) -> Unit,
+    drugs: MutableList<Drug>,
+    onCheckBtnClicked: (MutableList<Drug>) -> Unit,
     onCancelBtnClicked: () -> Unit = {},
     viewModel: DrugViewModel
 ) {
-    Column(modifier = Modifier.padding(10.dp)
+    Column(modifier = Modifier
+        .padding(10.dp)
         .fillMaxWidth()
         .fillMaxSize(0.93f)) {
-        if (drugs.isEmpty() || drugs.size == 1) {
+        if (drugs.isEmpty()) {
             Text(
                 modifier = Modifier.padding(10.dp),
                 fontFamily = FontFamily.Serif,
                 lineHeight = 30.sp,
-                text = "Not enough drugs to perform compatibility check.",
+                text = "Select Drugs to check compatibility.",
                 style = TextStyle(fontSize = 20.sp)
             )
         } else {
-            LazyColumn {
+            LazyColumn(
+                state = rememberLazyListState()
+            ) {
                 items(drugs) { drug ->
                     SelectedListItem(drug, viewModel)
                 }
@@ -108,8 +114,8 @@ fun SelectedListItem(
                // Spacer(modifier = Modifier.width(20.dp))
                 Spacer(modifier = Modifier.weight(1f))
 
-                OutlinedButton(onClick = { viewModel.removeDrug(drug) }) {
-                    Text(text = "Remove", fontSize = 17.sp)
+                IconButton(onClick = { viewModel.removeDrug(drug) }) {
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Remove ${drug.drug_name}")
                 }
                 Spacer(modifier = Modifier.width(15.dp))
             }

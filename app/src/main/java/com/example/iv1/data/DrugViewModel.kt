@@ -1,6 +1,7 @@
 package com.example.iv1.data
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
@@ -11,7 +12,7 @@ import com.google.firebase.database.ValueEventListener
 class DrugViewModel: ViewModel() {
     val response: MutableState<DataState> = mutableStateOf(DataState.Empty)
 
-    var tempList: ArrayList<Drug> = ArrayList()
+    var tempList = mutableStateListOf<Drug>()
 
     var drugInfo: Drug = Drug()
 
@@ -66,7 +67,7 @@ class DrugViewModel: ViewModel() {
         }
     }
 
-    fun getSelectedDrugList(): ArrayList<Drug> {
+    fun getSelectedDrugList(): MutableList<Drug> {
         return tempList
     }
 
