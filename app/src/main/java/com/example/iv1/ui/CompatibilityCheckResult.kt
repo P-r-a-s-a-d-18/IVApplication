@@ -1,16 +1,18 @@
 package com.example.iv1.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -18,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
+import com.example.iv1.ui.theme.color_b
+import com.example.iv1.ui.theme.color_g
 
 @Composable
 fun GetCheck(
@@ -47,9 +51,9 @@ fun DisplayItem(
     onElementClicked: (Pair<Drug, Drug>) -> Unit,
     viewModel: DrugViewModel
 ){
-    Spacer(modifier = Modifier.height(17.dp))
+    Spacer(modifier = Modifier.height(10.dp))
 
-    Column(modifier = Modifier.padding(10.dp)) {
+    Column(modifier = Modifier.padding(7.dp)) {
         Box(modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
@@ -63,29 +67,34 @@ fun DisplayItem(
                 elevation = 10.dp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
-                    .wrapContentHeight(),
-                border = BorderStroke(1.dp,Color.LightGray.copy(alpha = ContentAlpha.medium)),
-                backgroundColor = Color.LightGray
+                    .fillMaxHeight(),
+                border = BorderStroke(1.dp,Color.LightGray.copy(alpha = ContentAlpha.medium))
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
                         .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(10.dp),
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    color_b,
+                                    color_g
+                                )
+                            )
+                        ),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Spacer(modifier = Modifier.width(0.1.dp))
-
+                    Spacer(modifier = Modifier.width(1.dp))
                     Text(
-                        text = pair.first.drug_name + "  with  " + pair.second.drug_name,
-                        fontSize = MaterialTheme.typography.h6.fontSize
+                        text = pair.first.drug_name + " with " + pair.second.drug_name,
+                        fontSize = MaterialTheme.typography.h6.fontSize,
+                        color = Color.White
                     )
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "View details")
+                    Spacer(modifier = Modifier.weight(0.3f))
+                    Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Next Arrow",
+                    tint = Color.White)
+                    Spacer(modifier = Modifier.width(0.2.dp))
                 }
             }
         }

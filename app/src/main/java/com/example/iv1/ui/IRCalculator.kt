@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -42,44 +43,46 @@ fun IRScreen() {
 
     val focusManager = LocalFocusManager.current
 
-    Column(
-        modifier = Modifier.padding(32.dp),
-        Arrangement.spacedBy(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = stringResource(id = R.string.ir_calc),
-            fontSize = 24.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+    LazyColumn() {
+        items(1) {
+            Column(
+                modifier = Modifier.padding(32.dp),
+                Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(id = R.string.ir_calc),
+                    fontSize = 24.sp,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-        EditNumberField(label = R.string.ir_vol,
-            value = volInput,
-            onValueChange = { volInput = it },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) }
-            )
-        )
-        Spacer(modifier = Modifier.height(20.dp))
+                EditNumberField(label = R.string.ir_vol,
+                    value = volInput,
+                    onValueChange = { volInput = it },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                    )
+                )
+                Spacer(modifier = Modifier.height(20.dp))
 
-        EditNumberField(label = R.string.ir_time,
-            value = timeInput,
-            onValueChange = { timeInput = it },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) }
-            )
-        )
-        Spacer(modifier = Modifier.height(12.dp))
+                EditNumberField(label = R.string.ir_time,
+                    value = timeInput,
+                    onValueChange = { timeInput = it },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                    )
+                )
+                Spacer(modifier = Modifier.height(12.dp))
 
 //        EditNumberField(label = R.string.ir_drop_factor,
 //            value = factorInput,
@@ -92,20 +95,21 @@ fun IRScreen() {
 //                onDone = { focusManager.clearFocus(true) }
 //            )
 //        )
-        val dropFactor = dropFactorMenu()
+                val dropFactor = dropFactorMenu()
 
-        Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-        val ir = calculateIR(volume, time, dropFactor)
+                val ir = calculateIR(volume, time, dropFactor)
 
-        Text(
-            text = stringResource(id = R.string.ir_result, ir),
-            fontSize = 24.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+                Text(
+                    text = stringResource(id = R.string.ir_result, ir),
+                    fontSize = 24.sp,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
+        }
     }
 }
-
 fun calculateIR(volume: Double, time: Double, dropFactor: Int): String {
     var ir = (volume / time) * dropFactor
     if (ir.isNaN()) {
@@ -127,7 +131,7 @@ fun EditNumberField(@StringRes label: Int,
         Modifier.background(color = Color.LightGray.copy(alpha = 0.1f)),
         label = { Text (
             text = stringResource(id = label),
-            modifier = Modifier.width(200.dp)
+            modifier = Modifier.fillMaxWidth()
         )
         },
         keyboardOptions = keyboardOptions,
