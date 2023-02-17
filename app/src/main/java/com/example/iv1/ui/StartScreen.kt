@@ -36,13 +36,13 @@ fun StartScreen(
     ) {
         Spacer(modifier = Modifier.height(15.dp))
         Image(modifier = Modifier
-            .size(350.dp)
+            .size(330.dp)
             .clip(RectangleShape)
             .border(width = 1.dp, color = Color.Gray, shape = RoundedCornerShape(30.dp)),
             painter = painterResource(id = R.drawable.img1),
             contentDescription = "Circular image")
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         Text(
             text = "Welcome to NeoCheck where you can check compatibility of IV Fluids",
@@ -54,7 +54,7 @@ fun StartScreen(
             style = TextStyle(fontSize = 17.sp)
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedButton(onClick = { onCompatibilityCheckButtonClicked()},
             modifier = Modifier.height(60.dp)
