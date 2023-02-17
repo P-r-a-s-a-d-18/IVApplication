@@ -53,11 +53,11 @@ fun DisplayItem(
 ){
     Spacer(modifier = Modifier.height(10.dp))
 
-    Column(modifier = Modifier.padding(7.dp)) {
+    Column(modifier = Modifier.padding(vertical = 1.dp, horizontal = 10.dp)) {
         Box(modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
-            .padding(vertical = 7.dp)
+            .padding(vertical = 5.dp)
             .clickable {
                 onElementClicked(pair)
                 viewModel.setPair(pair)
@@ -89,11 +89,11 @@ fun DisplayItem(
                     Text(
                         text = pair.first.drug_name + " with " + pair.second.drug_name,
                         fontSize = MaterialTheme.typography.h6.fontSize,
-                        color = Color.White
+                        color = Color.Black
                     )
                     Spacer(modifier = Modifier.weight(0.3f))
                     Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Next Arrow",
-                    tint = Color.White)
+                    tint = Color.Black)
                     Spacer(modifier = Modifier.width(0.2.dp))
                 }
             }
