@@ -74,6 +74,7 @@ fun DisplayItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Spacer(modifier = Modifier.width(0.1.dp))
+
                     Text(
                         text = pair.first.drug_name + " with " + pair.second.drug_name,
                         fontSize = MaterialTheme.typography.h6.fontSize
