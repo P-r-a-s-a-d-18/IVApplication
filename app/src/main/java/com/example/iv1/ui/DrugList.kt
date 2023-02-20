@@ -23,6 +23,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.R
@@ -82,7 +83,7 @@ fun ShowDrugList(
     Column(modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()
-        .fillMaxSize(0.93f)
+        .fillMaxSize(0.92f)
     ) {
 
         LazyColumn {
@@ -105,7 +106,11 @@ fun ShowDrugList(
             }
         }
     }
-    Row(modifier = Modifier.fillMaxSize().padding(bottom = 5.dp),
+
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 5.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.Bottom
     ) {
@@ -115,9 +120,9 @@ fun ShowDrugList(
             ),
             onClick = { onDoneBtnClicked(drugs) }, modifier = Modifier
                 .width(110.dp)
-                .height(50.dp)
+                .height(40.dp)
         ) {
-                Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 18.sp))
+            Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 18.sp))
         }
     }
 }
@@ -144,7 +149,8 @@ fun SearchView(state: MutableState<TextFieldValue>) {
         placeholder = {
             Text(
                 text = "Search Drug",
-                style = TextStyle(fontSize = 16.sp)
+                style = TextStyle(fontSize = 16.sp),
+                color = Color.Gray
             )
         },
         trailingIcon = {

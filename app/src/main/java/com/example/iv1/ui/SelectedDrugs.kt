@@ -60,7 +60,7 @@ fun ShowSelectedList(
                         ),
                         onClick = { onCheckBtnClicked(drugs) }, modifier = Modifier
                             .width(220.dp)
-                            .height(43.dp)
+                            .height(40.dp)
                     ) {
                         Text(
                             text = "Check Incompatibility",
@@ -77,7 +77,7 @@ fun ShowSelectedList(
                         ),
                         onClick = { onCancelBtnClicked() }, modifier = Modifier
                             .width(110.dp)
-                            .height(43.dp)
+                            .height(40.dp)
                     ) {
                         Text(
                             text = "Cancel",

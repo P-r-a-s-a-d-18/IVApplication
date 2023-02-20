@@ -61,7 +61,7 @@ fun GetCheck(
             ),
             onClick = { onBackBtnClicked() }, modifier = Modifier
                 .width(110.dp)
-                .height(50.dp)
+                .height(40.dp)
         ) {
             Text(text = "Home", color = Color.White, style = TextStyle(fontSize = 18.sp))
         }
