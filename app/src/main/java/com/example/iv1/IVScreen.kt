@@ -8,7 +8,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -45,7 +47,10 @@ fun IVAppBar(
                     Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
                 }
             }
-        }
+        },
+        backgroundColor = MaterialTheme.colors.onPrimary,
+        contentColor = Color.Black,
+        elevation = 10.dp
     )
 }
 
@@ -61,11 +66,12 @@ fun Start(
     )
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             IVAppBar(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
-                navigateUp = { navController.navigateUp() }
+                navigateUp = { navController.navigateUp() },
             )
         }
     ) { innerPadding ->
@@ -143,5 +149,5 @@ private fun cancelAndNavigateToStart(
     viewModel: DrugViewModel
 ) {
     viewModel.tempList.clear()
-    navController.popBackStack(IVScreen.Start.name, inclusive = false)
+    navController.popBackStack(IVScreen.DrugList.name, inclusive = false)
 }
