@@ -1,5 +1,7 @@
 package com.example.iv1.ui
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,13 +25,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.iv1.R
 import com.example.iv1.data.AuthViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun RegisterPage(
     navController: NavController,
     authModel: AuthViewModel
 ) {
-
+    var auth = Firebase.auth
     val nameValue = remember { mutableStateOf("") }
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
@@ -144,10 +148,15 @@ fun RegisterPage(
 
                     Button(
                         onClick = {
-                            authModel.signUp(
-                                emailValue.toString(),
-                                passwordValue.toString()
-                            )
+                            auth.createUserWithEmailAndPassword(emailValue.value, passwordValue.value)
+                                .addOnCompleteListener{task ->
+                                    if (task.isSuccessful) {
+                                        Log.d(ContentValues.TAG, "createUserWithEmail:success")
+                                        navController.popBackStack("login_page", inclusive = false)
+                                    } else {
+                                        Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
+                                    }
+                                }
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.8f)

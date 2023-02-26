@@ -50,6 +50,7 @@ class MainActivity : ComponentActivity() {
                 navController = navController,
                 authModel = authModel
             ) })
+            composable("main_app", content = { Start() })
         })
     }
 }

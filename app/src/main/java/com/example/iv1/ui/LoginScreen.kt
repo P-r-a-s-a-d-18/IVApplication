@@ -1,5 +1,7 @@
 package com.example.iv1.ui
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,12 +27,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.iv1.R
 import com.example.iv1.data.AuthViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun LoginPage(
     navController: NavController,
     authModel: AuthViewModel
 ) {
+    var auth = Firebase.auth
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
 
@@ -54,10 +59,6 @@ fun LoginPage(
 
         Box(
             modifier = Modifier
-                /*.background(
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    shape = RoundedCornerShape(25.dp, 5.dp, 25.dp, 5.dp)
-                )*/
                 .align(Alignment.BottomCenter),
         ) {
 
@@ -70,11 +71,9 @@ fun LoginPage(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                //.........................Spacer
                 Spacer(modifier = Modifier.height(50.dp))
 
-                //.........................Text: title
-                androidx.compose.material.Text(
+                Text(
                     text = "Sign In",
                     style = TextStyle(
                         fontWeight = FontWeight.Bold,
@@ -120,14 +119,24 @@ fun LoginPage(
                     }
                 )
 
-                val gradientColor = listOf(Color(0xFF484BF1), Color(0xFF673AB7))
-                val cornerRadius = 16.dp
-
 
                 Spacer(modifier = Modifier.padding(10.dp))
 
                 Button(
-                    onClick = { authModel.logIn(emailValue.toString(), passwordValue.toString()) },
+                    onClick = {
+                        auth.signInWithEmailAndPassword(emailValue.value, passwordValue.value)
+                            .addOnCompleteListener{task ->
+                                if (task.isSuccessful) {
+                                    /* TODO: */
+                                    Log.d(ContentValues.TAG, "signInWithEmail:success")
+                                    val user = auth.currentUser
+                                    navController.navigate("main_app")
+                                } else {
+                                    Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
+                                }
+                            }
+
+                    },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .height(50.dp)
@@ -136,15 +145,15 @@ fun LoginPage(
                 }
 
                 Spacer(modifier = Modifier.padding(10.dp))
-                androidx.compose.material.TextButton(onClick = {
 
+                TextButton(onClick = {
                     navController.navigate("register_page") {
                         popUpTo(navController.graph.startDestinationId)
                         launchSingleTop = true
                     }
 
                 }) {
-                    androidx.compose.material.Text(
+                    Text(
                         text = "Create An Account",
                         letterSpacing = 1.sp,
                         style = MaterialTheme.typography.subtitle2
@@ -157,124 +166,3 @@ fun LoginPage(
         }
     }
 }
-
-//...........................................................................
-//@Composable
-//private fun GradientButton(
-//    gradientColors: List<Color>,
-//    cornerRadius: Dp,
-//    nameButton: String,
-//    roundedCornerShape: RoundedCornerShape,
-//    authModel: AuthViewModel
-//) {
-//
-//    androidx.compose.material.Button(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(start = 32.dp, end = 32.dp),
-//        onClick = {
-//            /* TODO: */
-//        },
-//
-//        contentPadding = PaddingValues(),
-//        colors = ButtonDefaults.buttonColors(
-//            backgroundColor = Color.Transparent
-//        ),
-//        shape = RoundedCornerShape(cornerRadius)
-//    ) {
-//
-//        Box(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .background(
-//                    brush = Brush.horizontalGradient(colors = gradientColors),
-//                    shape = roundedCornerShape
-//                )
-//                .clip(roundedCornerShape)
-//                /*.background(
-//                    brush = Brush.linearGradient(colors = gradientColors),
-//                    shape = RoundedCornerShape(cornerRadius)
-//                )*/
-//                .padding(horizontal = 16.dp, vertical = 8.dp),
-//            contentAlignment = Alignment.Center
-//        ) {
-//            androidx.compose.material.Text(
-//                text = nameButton,
-//                fontSize = 20.sp,
-//                color = Color.White
-//            )
-//        }
-//    }
-//}
-//
-//
-////email id
-//@OptIn(ExperimentalComposeUiApi::class)
-//@Composable
-//fun SimpleOutlinedTextFieldSample() {
-//    val keyboardController = LocalSoftwareKeyboardController.current
-//    var text by rememberSaveable { mutableStateOf("") }
-//
-//    OutlinedTextField(
-//        value = text,
-//        onValueChange = { text = it },
-//        shape = RoundedCornerShape(topEnd =12.dp, bottomStart =12.dp),
-//        label = {
-//            Text("Name or Email Address",
-//                color = MaterialTheme.colors.primary,
-//                style = MaterialTheme.typography.body1,
-//            ) },
-//        keyboardOptions = KeyboardOptions(
-//            imeAction = ImeAction.Next,
-//            keyboardType = KeyboardType.Email
-//        ),
-//        colors = TextFieldDefaults.outlinedTextFieldColors(
-//            focusedBorderColor = MaterialTheme.colors.primary,
-//            unfocusedBorderColor = MaterialTheme.colors.primary),
-//        singleLine = true,
-//        modifier = Modifier.fillMaxWidth(0.8f),
-//        keyboardActions = KeyboardActions(
-//            onDone = {
-//                keyboardController?.hide()
-//                // do something here
-//            }
-//        )
-//
-//    )
-//}
-//
-////password
-//@OptIn(ExperimentalComposeUiApi::class)
-//@Composable
-//fun SimpleOutlinedPasswordTextField() {
-//    val keyboardController = LocalSoftwareKeyboardController.current
-//    var password by rememberSaveable { mutableStateOf("") }
-//    var passwordHidden by rememberSaveable { mutableStateOf(true) }
-//    OutlinedTextField(
-//        value = password,
-//        onValueChange = { password = it },
-//        shape = RoundedCornerShape(topEnd =12.dp, bottomStart =12.dp),
-//        label = {
-//            Text("Enter Password",
-//                color = MaterialTheme.colors.primary,
-//                style = MaterialTheme.typography.body1,
-//            ) },
-//        visualTransformation =
-//        if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None,
-//        //  keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-//        keyboardOptions = KeyboardOptions(
-//            imeAction = ImeAction.Done,
-//            keyboardType = KeyboardType.Password
-//        ),
-//        colors = TextFieldDefaults.outlinedTextFieldColors(
-//            focusedBorderColor = MaterialTheme.colors.primary,
-//            unfocusedBorderColor = MaterialTheme.colors.primary),
-//        modifier = Modifier.fillMaxWidth(0.8f),
-//        keyboardActions = KeyboardActions(
-//            onDone = {
-//                keyboardController?.hide()
-//                // do something here
-//            }
-//        )
-//    )
-//}
