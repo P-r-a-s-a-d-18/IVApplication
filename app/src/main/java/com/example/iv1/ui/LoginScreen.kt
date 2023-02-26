@@ -5,10 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,7 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +34,7 @@ fun LoginPage(
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
 
+    Spacer(modifier = Modifier.height(20.dp))
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +43,14 @@ fun LoginPage(
                 color = Color.Transparent,
             )
     ) {
-
+        Image(
+            painter = painterResource(id = R.drawable.login),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .height(400.dp)
+                .fillMaxWidth()
+            )
 
         Box(
             modifier = Modifier
@@ -52,20 +61,11 @@ fun LoginPage(
                 .align(Alignment.BottomCenter),
         ) {
 
-            Image(
-                painter = painterResource(id = R.drawable.user_sign_in),
-                contentDescription = null,
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .height(180.dp)
-                    .fillMaxWidth(),
-
-                )
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(15.dp)
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-                ,
+                    .verticalScroll(rememberScrollState()),
 
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -76,21 +76,31 @@ fun LoginPage(
                 //.........................Text: title
                 androidx.compose.material.Text(
                     text = "Sign In",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .padding(top = 130.dp)
-                        .fillMaxWidth(),
-                    style = MaterialTheme.typography.subtitle1,
-                    color = MaterialTheme.colors.primary,
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = TextUnit.Unspecified,
+                        fontSize = 17.sp
+                    )
+
                 )
+                Spacer(modifier = Modifier.height(10.dp))
 
                 OutlinedTextField(
                     value = emailValue.value,
                     onValueChange = { emailValue.value = it },
                     label = { Text(text = "Email Address") },
                     singleLine = true,
-                    modifier = Modifier.fillMaxWidth(0.8f)
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Email,
+                            contentDescription = "emailValue",
+                            tint = Color.Gray
+                        )
+                    }
                 )
+
+                Spacer(modifier = Modifier.height(15.dp))
 
                 OutlinedTextField(
                     value = passwordValue.value,
@@ -98,6 +108,16 @@ fun LoginPage(
                     label = { Text(text = "Password") },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(0.8f),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Lock,
+                            contentDescription = "passwordValue",
+                            tint = Color.Gray
+                        )
+                    },
+                    trailingIcon = {
+                        Icon(painter = painterResource(id = R.drawable.outline_eye), contentDescription = "")
+                    }
                 )
 
                 val gradientColor = listOf(Color(0xFF484BF1), Color(0xFF673AB7))
@@ -106,16 +126,19 @@ fun LoginPage(
 
                 Spacer(modifier = Modifier.padding(10.dp))
 
-                Button(onClick = { authModel.logIn(emailValue.toString(), passwordValue.toString()) }, modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(50.dp)) {
+                Button(
+                    onClick = { authModel.logIn(emailValue.toString(), passwordValue.toString()) },
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .height(50.dp)
+                ) {
                     Text(text = "Login", fontSize = TextUnit.Companion.Unspecified)
                 }
 
                 Spacer(modifier = Modifier.padding(10.dp))
                 androidx.compose.material.TextButton(onClick = {
 
-                    navController.navigate("register_page"){
+                    navController.navigate("register_page") {
                         popUpTo(navController.graph.startDestinationId)
                         launchSingleTop = true
                     }
@@ -131,15 +154,9 @@ fun LoginPage(
                 Spacer(modifier = Modifier.padding(20.dp))
 
             }
-
-
         }
-
     }
-
-
 }
-
 
 //...........................................................................
 //@Composable
