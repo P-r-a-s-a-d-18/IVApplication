@@ -109,7 +109,7 @@ fun LoginPage(
                 Button(onClick = { authModel.logIn(emailValue.toString(), passwordValue.toString()) }, modifier = Modifier
                     .fillMaxWidth(0.8f)
                     .height(50.dp)) {
-                    Text(text = "Sign Up", fontSize = TextUnit.Companion.Unspecified)
+                    Text(text = "Login", fontSize = TextUnit.Companion.Unspecified)
                 }
 
                 Spacer(modifier = Modifier.padding(10.dp))
