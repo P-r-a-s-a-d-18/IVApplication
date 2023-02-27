@@ -21,6 +21,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,6 +40,14 @@ fun LoginPage(
     var auth = Firebase.auth
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
+
+    var passwordVisibility = remember { mutableStateOf(false) }
+
+    val icon = if(passwordVisibility.value) {
+        painterResource(id = R.drawable.visibility_on)
+    } else {
+        painterResource(id = R.drawable.visibility_off)
+    }
 
     Spacer(modifier = Modifier.height(20.dp))
     Box(
@@ -115,8 +125,18 @@ fun LoginPage(
                         )
                     },
                     trailingIcon = {
-                        Icon(painter = painterResource(id = R.drawable.outline_eye), contentDescription = "")
-                    }
+                        IconButton(onClick = {
+                            passwordVisibility.value = !passwordVisibility.value
+                        }) {
+                            Icon(
+                                painter = icon,
+                                contentDescription = "",
+                                tint = Color.Gray
+                            )
+                        }
+                    },
+                    visualTransformation = if (passwordVisibility.value) VisualTransformation.None
+                    else PasswordVisualTransformation()
                 )
 
 

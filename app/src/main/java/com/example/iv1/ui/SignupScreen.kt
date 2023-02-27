@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,6 +40,21 @@ fun RegisterPage(
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
     val confirmPasswordValue = remember { mutableStateOf("") }
+
+    var passwordVisibility1 = remember { mutableStateOf(false) }
+    var passwordVisibility2 = remember { mutableStateOf(false) }
+
+    val icon1 = if(passwordVisibility1.value) {
+        painterResource(id = R.drawable.visibility_on)
+    } else {
+        painterResource(id = R.drawable.visibility_off)
+    }
+
+    val icon2 = if(passwordVisibility2.value) {
+        painterResource(id = R.drawable.visibility_on)
+    } else {
+        painterResource(id = R.drawable.visibility_off)
+    }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter
     ) {
@@ -120,8 +137,18 @@ fun RegisterPage(
                             )
                         },
                         trailingIcon = {
-                           Icon(painter = painterResource(id =R.drawable.outline_eye), contentDescription ="")
-                        }
+                            IconButton(onClick = {
+                                passwordVisibility1.value = !passwordVisibility1.value
+                            }) {
+                                Icon(
+                                    painter = icon1,
+                                    contentDescription = "",
+                                    tint = Color.Gray
+                                )
+                            }
+                        },
+                        visualTransformation = if (passwordVisibility1.value) VisualTransformation.None
+                        else PasswordVisualTransformation()
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -140,8 +167,18 @@ fun RegisterPage(
                             )
                         },
                         trailingIcon = {
-                           Icon(painter = painterResource(id = R.drawable.outline_eye), contentDescription = "")
-                        }
+                            IconButton(onClick = {
+                                passwordVisibility2.value = !passwordVisibility2.value
+                            }) {
+                                Icon(
+                                    painter = icon2,
+                                    contentDescription = "",
+                                    tint = Color.Gray
+                                )
+                            }
+                        },
+                        visualTransformation = if (passwordVisibility2.value) VisualTransformation.None
+                        else PasswordVisualTransformation()
                     )
 
                     Spacer(modifier = Modifier.padding(10.dp))
