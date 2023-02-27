@@ -152,7 +152,10 @@ fun RegisterPage(
                                 .addOnCompleteListener{task ->
                                     if (task.isSuccessful) {
                                         Log.d(ContentValues.TAG, "createUserWithEmail:success")
-                                        navController.popBackStack("login_page", inclusive = false)
+                                        navController.navigate("login_page") {
+                                            popUpTo(navController.graph.startDestinationId)
+                                            launchSingleTop = true
+                                        }
                                     } else {
                                         Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
                                     }

@@ -127,7 +127,6 @@ fun LoginPage(
                         auth.signInWithEmailAndPassword(emailValue.value, passwordValue.value)
                             .addOnCompleteListener{task ->
                                 if (task.isSuccessful) {
-                                    /* TODO: */
                                     Log.d(ContentValues.TAG, "signInWithEmail:success")
                                     val user = auth.currentUser
                                     navController.navigate("main_app")
@@ -135,7 +134,6 @@ fun LoginPage(
                                     Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
                                 }
                             }
-
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
