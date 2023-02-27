@@ -1,7 +1,5 @@
 package com.example.iv1.ui
 
-import android.content.ContentValues
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -29,19 +27,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.iv1.R
 import com.example.iv1.data.AuthViewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 @Composable
 fun LoginPage(
     navController: NavController,
     authModel: AuthViewModel
 ) {
-    var auth = Firebase.auth
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
 
-    var passwordVisibility = remember { mutableStateOf(false) }
+    val passwordVisibility = remember { mutableStateOf(false) }
 
     val icon = if(passwordVisibility.value) {
         painterResource(id = R.drawable.visibility_on)
@@ -50,6 +45,7 @@ fun LoginPage(
     }
 
     Spacer(modifier = Modifier.height(20.dp))
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -92,6 +88,7 @@ fun LoginPage(
                     )
 
                 )
+
                 Spacer(modifier = Modifier.height(10.dp))
 
                 OutlinedTextField(
@@ -144,16 +141,11 @@ fun LoginPage(
 
                 Button(
                     onClick = {
-                        auth.signInWithEmailAndPassword(emailValue.value, passwordValue.value)
-                            .addOnCompleteListener{task ->
-                                if (task.isSuccessful) {
-                                    Log.d(ContentValues.TAG, "signInWithEmail:success")
-                                    val user = auth.currentUser
-                                    navController.navigate("main_app")
-                                } else {
-                                    Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
-                                }
-                            }
+                        if (authModel.loginUser(emailValue.value, passwordValue.value).value) {
+                            navController.navigate("main_app")
+                        } else {
+                            /* TODO: */
+                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)

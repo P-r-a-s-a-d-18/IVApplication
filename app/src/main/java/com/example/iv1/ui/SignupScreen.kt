@@ -1,7 +1,5 @@
 package com.example.iv1.ui
 
-import android.content.ContentValues
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -185,18 +183,14 @@ fun RegisterPage(
 
                     Button(
                         onClick = {
-                            auth.createUserWithEmailAndPassword(emailValue.value, passwordValue.value)
-                                .addOnCompleteListener{task ->
-                                    if (task.isSuccessful) {
-                                        Log.d(ContentValues.TAG, "createUserWithEmail:success")
-                                        navController.navigate("login_page") {
-                                            popUpTo(navController.graph.startDestinationId)
-                                            launchSingleTop = true
-                                        }
-                                    } else {
-                                        Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                                    }
+                            if (authModel.signupUser(emailValue.value, passwordValue.value).value) {
+                                navController.navigate("login_page") {
+                                    popUpTo(navController.graph.startDestinationId)
+                                    launchSingleTop = true
                                 }
+                            } else {
+                                /* TODO: */
+                            }
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.8f)

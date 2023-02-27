@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    if (AuthViewModel().isUser()) {
+                    if (AuthViewModel().isUser().value) {
                         Start()
                     } else {
                         LoginApplication()

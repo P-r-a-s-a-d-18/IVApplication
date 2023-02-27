@@ -21,10 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.R
+import com.example.iv1.data.AuthViewModel
 import com.example.iv1.ui.components.GradientButton
 import com.example.iv1.ui.theme.lightBlue
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 @Composable
 fun StartScreen(
@@ -34,6 +33,8 @@ fun StartScreen(
 ){
     val gradient =
         Brush.horizontalGradient(listOf(Color(0xFF1B71D3), Color(0xFF83A4DD)))
+
+    val authModel = AuthViewModel()
 
     Box(modifier = Modifier
         .fillMaxWidth()
@@ -124,7 +125,9 @@ fun StartScreen(
                             horizontal = 16.dp,
                             vertical = 8.dp
                         ),
-                    onClick = { Firebase.auth.signOut() }
+                    onClick = {
+                        authModel.logoutUser()
+                    }
                 )
             }
         }
