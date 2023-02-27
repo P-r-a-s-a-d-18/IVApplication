@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.sp
 import com.example.iv1.R
 import com.example.iv1.ui.components.GradientButton
 import com.example.iv1.ui.theme.lightBlue
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun StartScreen(
@@ -109,6 +111,20 @@ fun StartScreen(
                             vertical = 8.dp
                         ),
                     onClick = { onIRCalcButtonClicked() }
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+
+                GradientButton(
+                    text = "Signout",
+                    gradient = gradient,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(70.dp)
+                        .padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp
+                        ),
+                    onClick = { Firebase.auth.signOut() }
                 )
             }
         }
