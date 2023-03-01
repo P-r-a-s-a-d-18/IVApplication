@@ -18,8 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.iv1.data.DrugViewModel
-import com.example.iv1.ui.*
-import com.example.iv1.ui.theme.DisplayDrug
+import com.example.iv1.ui.composables.*
 
 enum class IVScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),

@@ -1,5 +1,6 @@
-package com.example.iv1.ui
+package com.example.iv1.ui.composables
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -31,6 +33,7 @@ fun StartScreen(
     onCompatibilityCheckButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ){
+    val context = LocalContext.current
     val gradient =
         Brush.horizontalGradient(listOf(Color(0xFF1B71D3), Color(0xFF83A4DD)))
 
@@ -126,7 +129,7 @@ fun StartScreen(
                             vertical = 8.dp
                         ),
                     onClick = {
-                        authModel.logoutUser()
+                        authModel.logoutUser(context, context as? Activity)
                     }
                 )
             }

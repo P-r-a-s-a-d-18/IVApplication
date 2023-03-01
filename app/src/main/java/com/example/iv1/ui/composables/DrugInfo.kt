@@ -1,4 +1,4 @@
-package com.example.iv1.ui.theme
+package com.example.iv1.ui.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

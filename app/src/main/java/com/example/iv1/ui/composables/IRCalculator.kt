@@ -1,4 +1,4 @@
-package com.example.iv1.ui
+package com.example.iv1.ui.composables
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.example.iv1.ui
+package com.example.iv1.ui.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -25,15 +26,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.iv1.R
 import com.example.iv1.data.AuthViewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 @Composable
 fun RegisterPage(
     navController: NavController,
     authModel: AuthViewModel
 ) {
-    var auth = Firebase.auth
+    val context = LocalContext.current
     val nameValue = remember { mutableStateOf("") }
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
@@ -183,14 +182,7 @@ fun RegisterPage(
 
                     Button(
                         onClick = {
-                            if (authModel.signupUser(emailValue.value, passwordValue.value).value) {
-                                navController.navigate("login_page") {
-                                    popUpTo(navController.graph.startDestinationId)
-                                    launchSingleTop = true
-                                }
-                            } else {
-                                /* TODO: */
-                            }
+                            authModel.signupUser(emailValue.value, passwordValue.value, navController, context)
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.8f)

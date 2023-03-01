@@ -1,4 +1,4 @@
-package com.example.iv1.ui
+package com.example.iv1.ui.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -33,6 +34,7 @@ fun LoginPage(
     navController: NavController,
     authModel: AuthViewModel
 ) {
+    val ctx = LocalContext.current
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
 
@@ -141,11 +143,7 @@ fun LoginPage(
 
                 Button(
                     onClick = {
-                        if (authModel.loginUser(emailValue.value, passwordValue.value).value) {
-                            navController.navigate("main_app")
-                        } else {
-                            /* TODO: */
-                        }
+                        authModel.loginUser(emailValue.value, passwordValue.value, ctx)
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
