@@ -3,15 +3,15 @@ package com.example.iv1
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -40,17 +40,62 @@ fun IVAppBar(
     TopAppBar(
         title ={ Text(stringResource(id = currentScreen.title)) },
         modifier = modifier,
-        navigationIcon ={
-            if(canNavigateBack) {
-                IconButton(onClick = navigateUp) {
-                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
-                }
-            }
-        },
+//        navigationIcon ={
+////            if(canNavigateBack) {
+////                IconButton(onClick = navigateUp) {
+////                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
+////                }
+////            }
+//        },
         backgroundColor = MaterialTheme.colors.onPrimary,
         contentColor = Color.Black,
         elevation = 10.dp
     )
+}
+
+@Composable
+fun BottomNavigationBar(navController: NavController) {
+    val items = listOf(
+        NavigationItem.Home,
+        NavigationItem.DrugList,
+        NavigationItem.SelectedDrugs,
+        NavigationItem.Results,
+        NavigationItem.IRCalc
+    )
+    BottomNavigation(
+        backgroundColor = Color.Blue,
+        contentColor = Color.White
+    ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route ?:IVScreen.Start.name
+        items.forEach { item ->
+            BottomNavigationItem(
+                icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
+                label = { Text(text = item.title) },
+                selectedContentColor = Color.White,
+                unselectedContentColor = Color.White.copy(0.4f),
+                alwaysShowLabel = true,
+                selected = currentRoute == item.route,
+                onClick = {
+                    navController.navigate(item.route) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        // Avoid multiple copies of the same destination when
+                        // reselecting the same item
+                        launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
+                        restoreState = true
+                    }
+                }
+            )
+        }
+    }
 }
 
 @Composable
@@ -72,29 +117,30 @@ fun Start(
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() },
             )
-        }
+        },
+        bottomBar = { BottomNavigationBar(navController) }
     ) { innerPadding ->
 
         NavHost(
             navController = navController,
-            IVScreen.Start.name,
+            startDestination = IVScreen.Start.name,
             modifier = modifier.padding(innerPadding)
         ) {
             composable(route = IVScreen.Start.name) {
                 StartScreen(
-                    onIRCalcButtonClicked = { navController.navigate(IVScreen.IRCalc.name) },
-                    onCompatibilityCheckButtonClicked = {
-                        navController.navigate(IVScreen.DrugList.name)
-                    }
+//                    onIRCalcButtonClicked = { navController.navigate(IVScreen.IRCalc.name) },
+//                    onCompatibilityCheckButtonClicked = {
+//                        navController.navigate(IVScreen.DrugList.name)
+//                    }
                 )
             }
 
             composable(route = IVScreen.DrugList.name) {
                 SetData(
                     viewModel = viewModel,
-                    onDoneBtnClicked = {
-                        navController.navigate(IVScreen.SelectedDrugs.name)
-                    },
+//                    onDoneBtnClicked = {
+//                        navController.navigate(IVScreen.SelectedDrugs.name)
+//                    },
                     onListItemClicked = {
                         navController.navigate(IVScreen.DrugInfo.name)
                     }
@@ -104,12 +150,12 @@ fun Start(
             composable(route = IVScreen.SelectedDrugs.name) {
                 ShowSelectedList(
                     drugs = viewModel.getSelectedDrugList(),
-                    onCheckBtnClicked = {
-                        navController.navigate(IVScreen.Results.name)
-                    },
-                    onCancelBtnClicked = {
-                        cancelAndNavigateToStart(navController, viewModel)
-                    },
+//                    onCheckBtnClicked = {
+//                        navController.navigate(IVScreen.Results.name)
+//                    },
+//                    onCancelBtnClicked = {
+//                        cancelAndNavigateToStart(navController, viewModel)
+//                    },
                     viewModel
                 )
             }
@@ -120,9 +166,9 @@ fun Start(
                     onElementClicked = {
                         navController.navigate(IVScreen.ResultDetails.name)
                     },
-                    onBackBtnClicked = {
-                        cancelAndNavigateToStart(navController, viewModel)
-                    }
+//                    onBackBtnClicked = {
+//                        cancelAndNavigateToStart(navController, viewModel)
+//                    }
                 )
             }
 

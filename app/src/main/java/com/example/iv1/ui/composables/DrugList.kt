@@ -34,7 +34,7 @@ import java.util.*
 @Composable
 fun SetData(
     viewModel: DrugViewModel,
-    onDoneBtnClicked: (MutableList<Drug>) -> Unit,
+//    onDoneBtnClicked: (MutableList<Drug>) -> Unit,
     onListItemClicked: () -> Unit
 ) {
     when(val result = viewModel.response.value) {
@@ -50,7 +50,7 @@ fun SetData(
                 ShowDrugList(
                     result.data,
                     state = textState,
-                    onDoneBtnClicked = onDoneBtnClicked,
+//                    onDoneBtnClicked = onDoneBtnClicked,
                     onListItemClicked = onListItemClicked,
                     viewModel = viewModel
                 )
@@ -72,7 +72,7 @@ fun SetData(
 @Composable
 fun ShowDrugList(
     drugs:MutableList<Drug>,
-    onDoneBtnClicked: (MutableList<Drug>) -> Unit,
+//    onDoneBtnClicked: (MutableList<Drug>) -> Unit,
     onListItemClicked: () -> Unit,
     viewModel: DrugViewModel,
     state: MutableState<TextFieldValue>
@@ -82,7 +82,7 @@ fun ShowDrugList(
     Column(modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()
-        .fillMaxSize(0.92f)
+        .fillMaxSize()
     ) {
 
         LazyColumn {
@@ -106,24 +106,24 @@ fun ShowDrugList(
         }
     }
 
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 5.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.Bottom
-    ) {
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Blue
-            ),
-            onClick = { onDoneBtnClicked(drugs) }, modifier = Modifier
-                .width(110.dp)
-                .height(40.dp)
-        ) {
-            Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 18.sp))
-        }
-    }
+//    Row(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(bottom = 5.dp),
+//        horizontalArrangement = Arrangement.Center,
+//        verticalAlignment = Alignment.Bottom
+//    ) {
+//        Button(
+//            colors = ButtonDefaults.buttonColors(
+//                backgroundColor = Color.Blue
+//            ),
+//            onClick = { onDoneBtnClicked(drugs) }, modifier = Modifier
+//                .width(110.dp)
+//                .height(40.dp)
+//        ) {
+//            Text(text = "Next", color = Color.White, style = TextStyle(fontSize = 18.sp))
+//        }
+//    }
 }
 
 @Composable
@@ -198,7 +198,7 @@ fun ListItem(
             .height(80.dp)
             .padding(10.dp)
     ) {
-        Card(elevation = 10.dp,
+        Card(elevation = 6.dp,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
@@ -224,7 +224,7 @@ fun ListItem(
                 )
                 Spacer(modifier = Modifier.width(15.dp))
 
-                Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h5.fontSize)
+                Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h6.fontSize)
                 
                 Spacer(modifier = Modifier.weight(1f))
 

@@ -25,7 +25,7 @@ class DrugViewModel: ViewModel() {
 
     private fun fetchDataFromFirebase() {
         response.value = DataState.Loading
-        val ref = FirebaseDatabase.getInstance().getReference()
+        val ref = FirebaseDatabase.getInstance().reference
         val drugRef = ref.child("Drugs")
 
         drugRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -89,10 +89,10 @@ class DrugViewModel: ViewModel() {
     }
 
     fun getAssertion(): Boolean {
-        return (drug1.type_of_incompatibility.containsKey(drug2.drug_name) || drug2.type_of_incompatibility.containsKey(drug1.drug_name))
+        return (drug1.type_of_incompatibility.containsKey(drug2.drug_name.lowercase().trim()) || drug2.type_of_incompatibility.containsKey(drug1.drug_name.lowercase().trim()))
     }
 
     fun getResultObject(): ArrayList<HashMap<String, String>> {
-        return drug1.type_of_incompatibility[drug2.drug_name]!!
+        return drug1.type_of_incompatibility[drug2.drug_name.lowercase().trim()]!!
     }
 }

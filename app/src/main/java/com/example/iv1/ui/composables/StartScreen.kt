@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -24,18 +23,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.R
 import com.example.iv1.data.AuthViewModel
-import com.example.iv1.ui.components.GradientButton
+import com.example.iv1.ui.components.Button1
 import com.example.iv1.ui.theme.lightBlue
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun StartScreen(
-    onIRCalcButtonClicked: () -> Unit,
-    onCompatibilityCheckButtonClicked: () -> Unit,
+//    onIRCalcButtonClicked: () -> Unit,
+//    onCompatibilityCheckButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ){
     val context = LocalContext.current
-    val gradient =
-        Brush.horizontalGradient(listOf(Color(0xFF1B71D3), Color(0xFF83A4DD)))
 
     val authModel = AuthViewModel()
 
@@ -90,43 +88,63 @@ fun StartScreen(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                GradientButton(
-                    text = "Check Compatibility",
-                    gradient = gradient,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 8.dp
-                        ),
-                    onClick = { onCompatibilityCheckButtonClicked() }
+//                Button1(
+//                    text = "Check Compatibility",
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(70.dp)
+//                        .padding(
+//                            horizontal = 16.dp,
+//                            vertical = 8.dp
+//                        ),
+//                    onClick = { onCompatibilityCheckButtonClicked() }
+//                )
+//                Spacer(modifier = Modifier.height(5.dp))
+//
+//                Button1(
+//                    text = "IR Calculator",
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(70.dp)
+//                        .padding(
+//                            horizontal = 16.dp,
+//                            vertical = 8.dp
+//                        ),
+//                    onClick = { onIRCalcButtonClicked() }
+//                )
+
+                Text(
+                    text = "User Id: ",
+                    color = Color.DarkGray,
+                    fontFamily = FontFamily.SansSerif,
+                    lineHeight = 30.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                    fontSize = MaterialTheme.typography.h6.fontSize
                 )
+
+                Text(
+                    text = FirebaseAuth.getInstance().currentUser?.email.toString(),
+                    color = Color.DarkGray,
+                    fontFamily = FontFamily.SansSerif,
+                    lineHeight = 30.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                    fontSize = MaterialTheme.typography.h6.fontSize
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
                 Spacer(modifier = Modifier.height(5.dp))
 
-                GradientButton(
-                    text = "IR Calculator",
-                    gradient = gradient,
+                Button1(
+                    text = "Sign Out",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(70.dp)
                         .padding(
-                            horizontal = 16.dp,
-                            vertical = 8.dp
-                        ),
-                    onClick = { onIRCalcButtonClicked() }
-                )
-                Spacer(modifier = Modifier.height(5.dp))
-
-                GradientButton(
-                    text = "Signout",
-                    gradient = gradient,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 8.dp
+                            horizontal = 30.dp,
+                            vertical = 6.dp
                         ),
                     onClick = {
                         authModel.logoutUser(context, context as? Activity)

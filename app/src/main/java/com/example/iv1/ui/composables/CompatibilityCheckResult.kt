@@ -1,7 +1,6 @@
 package com.example.iv1.ui.composables
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,7 +11,6 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -20,19 +18,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
-import com.example.iv1.ui.theme.color_b
-import com.example.iv1.ui.theme.color_g
 
 @Composable
 fun GetCheck(
     viewModel: DrugViewModel,
     onElementClicked: (Pair<Drug, Drug>) -> Unit,
-    onBackBtnClicked: () -> Unit
+//    onBackBtnClicked: () -> Unit
 ) {
     Column(modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()
-        .fillMaxSize(0.93f)
+        .fillMaxSize()
     )
     {
         if (viewModel.tempList.isEmpty() || viewModel.tempList.size == 1) {
@@ -51,21 +47,21 @@ fun GetCheck(
             }
         }
     }
-    Row(modifier = Modifier.fillMaxSize().padding(bottom = 5.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.Bottom
-    ) {
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Blue
-            ),
-            onClick = { onBackBtnClicked() }, modifier = Modifier
-                .width(110.dp)
-                .height(40.dp)
-        ) {
-            Text(text = "Home", color = Color.White, style = TextStyle(fontSize = 18.sp))
-        }
-    }
+//    Row(modifier = Modifier.fillMaxSize().padding(bottom = 5.dp),
+//        horizontalArrangement = Arrangement.Center,
+//        verticalAlignment = Alignment.Bottom
+//    ) {
+//        Button(
+//            colors = ButtonDefaults.buttonColors(
+//                backgroundColor = Color.Blue
+//            ),
+//            onClick = { onBackBtnClicked() }, modifier = Modifier
+//                .width(110.dp)
+//                .height(40.dp)
+//        ) {
+//            Text(text = "Home", color = Color.White, style = TextStyle(fontSize = 18.sp))
+//        }
+//    }
 }
 
 @Composable
@@ -97,14 +93,14 @@ fun DisplayItem(
                     modifier = Modifier
                         .fillMaxSize()
                         .fillMaxWidth()
-                        .background(
-                            brush = Brush.linearGradient(
-                                colors = listOf(
-                                    color_b,
-                                    color_g
-                                )
-                            )
-                        )
+//                        .background(
+//                            brush = Brush.linearGradient(
+//                                colors = listOf(
+//                                    color_b,
+//                                    color_g
+//                                )
+//                            )
+//                        )
                         .padding(8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically

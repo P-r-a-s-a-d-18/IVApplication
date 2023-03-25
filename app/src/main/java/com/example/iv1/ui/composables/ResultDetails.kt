@@ -23,7 +23,7 @@ import com.example.iv1.data.DrugViewModel
 @Composable
 fun ResDetail(viewModel: DrugViewModel) {
     Column(modifier = Modifier
-        .padding(20.dp)
+        .padding(10.dp)
         .fillMaxWidth()
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -60,50 +60,50 @@ fun ResDetail(viewModel: DrugViewModel) {
 @Composable
 fun DisplayData(it: HashMap<String, String>) {
     Card(
-        elevation = 10.dp,
+//        elevation = 6.dp,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp),
+            .padding(8.dp),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
                 text = "Dose",
-                fontSize = MaterialTheme.typography.h5.fontSize,
+                fontSize = MaterialTheme.typography.h6.fontSize,
                 fontWeight = FontWeight.Bold,
             )
             Divider(thickness = 2.dp)
             Text(
-                text = it["Mixture"].toString(),
+                text = it["dose"].toString(),
                 fontSize = MaterialTheme.typography.body1.fontSize
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Type",
-                fontSize = MaterialTheme.typography.h5.fontSize,
+                text = "Result",
+                fontSize = MaterialTheme.typography.h6.fontSize,
                 fontWeight = FontWeight.Bold
             )
             Divider(thickness = 2.dp)
             Text(
-                text = it["Type"].toString(),
+                text = it["type"].toString(),
                 fontSize = MaterialTheme.typography.body1.fontSize
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Effect",
-                fontSize = MaterialTheme.typography.h5.fontSize,
+                text = "Details",
+                fontSize = MaterialTheme.typography.h6.fontSize,
                 fontWeight = FontWeight.Bold
             )
             Divider(thickness = 2.dp)
             Text(
-                text = it["Effect"].toString(),
+                text = it["details"].toString(),
                 fontSize = MaterialTheme.typography.body1.fontSize
             )
 
