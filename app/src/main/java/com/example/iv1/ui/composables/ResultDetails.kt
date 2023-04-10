@@ -31,22 +31,22 @@ fun ResDetail(viewModel: DrugViewModel) {
         Spacer(modifier = Modifier.height(5.dp))
     if (viewModel.getAssertion()) {
         LazyColumn {
-            viewModel.getResultObject().forEach { obj ->
-                val objId = viewModel.getResultObject().indexOf(obj)
-//                stickyHeader {
-//                    obj["Mixture"]?.let {
-//                        Text(
-//                            text = it,
-//                            color = Color.White,
-//                            modifier = Modifier
-//                                .background(Color.Gray)
-//                                .padding(8.dp)
-//                                .fillMaxWidth(),
-//                            style = TextStyle(fontSize = 18.sp))
-//                    }
-//                }
-                items(viewModel.getResultObject()) { it ->
-                    if(viewModel.getResultObject().indexOf(it) == objId) {
+            viewModel.getResultObject()?.forEach { obj ->
+                val objId = viewModel.getResultObject()!!.indexOf(obj)
+        //                stickyHeader {
+        //                    obj["Mixture"]?.let {
+        //                        Text(
+        //                            text = it,
+        //                            color = Color.White,
+        //                            modifier = Modifier
+        //                                .background(Color.Gray)
+        //                                .padding(8.dp)
+        //                                .fillMaxWidth(),
+        //                            style = TextStyle(fontSize = 18.sp))
+        //                    }
+        //                }
+                items(viewModel.getResultObject()!!) { it ->
+                    if(viewModel.getResultObject()!!.indexOf(it) == objId) {
                         DisplayData(it = it)
                     }
                 }

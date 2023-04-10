@@ -86,14 +86,14 @@ fun InfoBox(drug: Drug) {
                 )
                 Text(
                     text = drug.storage,
-                    lineHeight = 30.sp,
+                    lineHeight = 30.sp, 
                     modifier = Modifier.fillMaxWidth(),
                     style = TextStyle(fontSize = 20.sp)
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "IV Fluids : ",
+                    text = "Diluent : ",
                     color = Color.Blue,
                     fontSize = MaterialTheme.typography.h5.fontSize
                 )

@@ -89,10 +89,45 @@ class DrugViewModel: ViewModel() {
     }
 
     fun getAssertion(): Boolean {
-        return (drug1.type_of_incompatibility.containsKey(drug2.drug_name.lowercase().trim()) || drug2.type_of_incompatibility.containsKey(drug1.drug_name.lowercase().trim()))
+        if(drug1.type_of_incompatibility.containsKey(drug2.drug_name.lowercase().trim()) ||
+            drug2.type_of_incompatibility.containsKey(drug1.drug_name.lowercase().trim())) {
+            return true
+        }
+        val hashMap1 = drug1.type_of_incompatibility
+        for( (key, value) in hashMap1 ) {
+            if(key.contains(drug2.drug_name.lowercase().trim().split(" ")[0])) {
+                return true
+            }
+        }
+        val hashMap2 = drug2.type_of_incompatibility
+        for( (key, value) in hashMap2 ) {
+            if(key.contains(drug1.drug_name.lowercase().trim().split(" ")[0])) {
+                return true
+            }
+        }
+        return false
     }
 
-    fun getResultObject(): ArrayList<HashMap<String, String>> {
-        return drug1.type_of_incompatibility[drug2.drug_name.lowercase().trim()]!!
+    fun getResultObject(): ArrayList<HashMap<String, String>>? {
+        val obj = ArrayList<HashMap<String, String>>()
+        if(drug1.type_of_incompatibility.containsKey(drug2.drug_name.lowercase().trim())) {
+            return drug1.type_of_incompatibility[drug2.drug_name.lowercase().trim()]!!
+        }
+        if(drug2.type_of_incompatibility.containsKey(drug1.drug_name.lowercase().trim())) {
+            return drug2.type_of_incompatibility[drug1.drug_name.lowercase().trim()]!!
+        }
+        val hashMap1 = drug1.type_of_incompatibility
+        for( (key, value) in hashMap1 ) {
+            if(key.contains(drug2.drug_name.lowercase().trim().split(" ")[0])) {
+                return hashMap1[key]!!
+            }
+        }
+        val hashMap2 = drug2.type_of_incompatibility
+        for( (key, value) in hashMap2 ) {
+            if(key.contains(drug1.drug_name.lowercase().trim().split(" ")[0])) {
+                return hashMap2[key]!!
+            }
+        }
+        return obj
     }
 }
