@@ -17,7 +17,7 @@ import com.example.iv1.R
 import com.example.iv1.data.Drug
 
 @Composable
-fun DisplayIncompList(drug: Drug) {
+fun DisplayCompList(drug: Drug) {
     Column(modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()
@@ -25,15 +25,15 @@ fun DisplayIncompList(drug: Drug) {
     ) {
         Spacer(modifier = Modifier.height(8.dp))
         LazyColumn {
-            items(drug.incompatible_drugs) {
-                ListIncompDrug(item = it)
+            items(drug.compatible_drugs) {
+                ListCompDrug(item = it)
             }
         }
     }
 }
 
 @Composable
-fun ListIncompDrug(
+fun ListCompDrug(
     item: String
 ) {
     Box(

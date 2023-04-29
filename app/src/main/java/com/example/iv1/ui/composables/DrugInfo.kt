@@ -19,6 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.iv1.IVScreen
 import com.example.iv1.R
 import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
@@ -26,14 +28,14 @@ import com.example.iv1.data.DrugViewModel
 @Composable
 fun DisplayDrug(
     viewModel: DrugViewModel,
-    onItemClicked: () -> Unit
+    navController: NavController
 ) {
         val drug = viewModel.getDrug()
-        InfoBox(drug, onItemClicked)
+        InfoBox(drug, navController)
 }
 
 @Composable
-fun InfoBox(drug: Drug, onItemClicked: () -> Unit) {
+fun InfoBox(drug: Drug, navController: NavController) {
     LazyColumn() {
         items(1) {
 
@@ -109,14 +111,9 @@ fun InfoBox(drug: Drug, onItemClicked: () -> Unit) {
                     style = TextStyle(fontSize = 20.sp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                HeaderView(questionText = "INCOMPATIBLE DRUGS", onClickItem = onItemClicked)
+                HeaderView(questionText = "INCOMPATIBLE DRUGS", onClickItem = { navController.navigate(IVScreen.IncompList.name) })
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = drug.incompatible_drugs.toString(),
-                    lineHeight = 30.sp,
-                    modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(fontSize = 20.sp)
-                )
+                HeaderView(questionText = "COMPATIBLE DRUGS", onClickItem = { navController.navigate(IVScreen.CompList.name) })
             }
         }
     }
