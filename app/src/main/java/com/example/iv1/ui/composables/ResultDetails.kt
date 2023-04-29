@@ -71,7 +71,7 @@ fun DisplayData(it: HashMap<String, String>) {
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = "Dose",
+                text = "Concentration",
                 fontSize = MaterialTheme.typography.h6.fontSize,
                 fontWeight = FontWeight.Bold,
             )

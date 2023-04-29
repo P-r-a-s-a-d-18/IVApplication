@@ -1,13 +1,17 @@
 package com.example.iv1.ui.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,14 +25,15 @@ import com.example.iv1.data.DrugViewModel
 
 @Composable
 fun DisplayDrug(
-    viewModel: DrugViewModel
+    viewModel: DrugViewModel,
+    onItemClicked: () -> Unit
 ) {
         val drug = viewModel.getDrug()
-        InfoBox(drug)
+        InfoBox(drug, onItemClicked)
 }
 
 @Composable
-fun InfoBox(drug: Drug) {
+fun InfoBox(drug: Drug, onItemClicked: () -> Unit) {
     LazyColumn() {
         items(1) {
 
@@ -103,7 +108,81 @@ fun InfoBox(drug: Drug) {
                     modifier = Modifier.fillMaxWidth(),
                     style = TextStyle(fontSize = 20.sp)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                HeaderView(questionText = "INCOMPATIBLE DRUGS", onClickItem = onItemClicked)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = drug.incompatible_drugs.toString(),
+                    lineHeight = 30.sp,
+                    modifier = Modifier.fillMaxWidth(),
+                    style = TextStyle(fontSize = 20.sp)
+                )
             }
         }
     }
 }
+
+@Composable
+fun HeaderView(questionText: String, onClickItem: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .background(Color.White)
+            .clickable(
+                indication = null, // Removes the ripple effect on tap
+                interactionSource = remember { MutableInteractionSource() }, // Removes the ripple effect on tap
+                onClick = onClickItem
+            )
+            .padding(8.dp)
+    ) {
+        Text(
+            text = questionText,
+            fontSize = 17.sp,
+            color = Color.Blue,
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+    }
+}
+
+//@Composable
+//fun ExpandableView(answerText: String, isExpanded: Boolean) {
+//    // Opening Animation
+//    val expandTransition = remember {
+//        expandVertically(
+//            expandFrom = Alignment.Top,
+//            animationSpec = tween(300)
+//        ) + fadeIn(
+//            animationSpec = tween(300)
+//        )
+//    }
+//
+//    // Closing Animation
+//    val collapseTransition = remember {
+//        shrinkVertically(
+//            shrinkTowards = Alignment.Top,
+//            animationSpec = tween(300)
+//        ) + fadeOut(
+//            animationSpec = tween(300)
+//        )
+//    }
+//
+//    AnimatedVisibility(
+//        visible = isExpanded,
+//        enter = expandTransition,
+//        exit = collapseTransition
+//    ) {
+//        Box(
+//            modifier = Modifier
+//                .background(Color.White)
+//                .padding(15.dp)
+//        ) {
+//            Text(
+//                text = answerText,
+//                fontSize = 16.sp,
+//                color = Color.Black,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//            )
+//        }
+//    }
+//}

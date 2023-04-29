@@ -23,4 +23,5 @@
     <string name="title_activity_authentication">AuthenticationActivity</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="incomp_list">Incompatible Drugs</string>
 </resources>
