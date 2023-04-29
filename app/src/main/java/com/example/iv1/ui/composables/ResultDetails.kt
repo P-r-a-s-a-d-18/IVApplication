@@ -103,10 +103,9 @@ fun DisplayData(it: HashMap<String, String>) {
             )
             Divider(thickness = 2.dp)
             Text(
-                text = it["details"].toString(),
+                text = it["reason"].toString(),
                 fontSize = MaterialTheme.typography.body1.fontSize
             )
-
         }
     }
     Spacer(modifier = Modifier.height(12.dp))

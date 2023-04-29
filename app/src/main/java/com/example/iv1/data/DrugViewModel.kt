@@ -113,14 +113,14 @@ class DrugViewModel: ViewModel() {
         if(drug1.type_of_incompatibility.containsKey(drug2.drug_name.lowercase().trim())) {
             return drug1.type_of_incompatibility[drug2.drug_name.lowercase().trim()]!!
         }
-        if(drug2.type_of_incompatibility.containsKey(drug1.drug_name.lowercase().trim())) {
-            return drug2.type_of_incompatibility[drug1.drug_name.lowercase().trim()]!!
-        }
         val hashMap1 = drug1.type_of_incompatibility
         for( (key, value) in hashMap1 ) {
             if(key.contains(drug2.drug_name.lowercase().trim().split(" ")[0])) {
                 return hashMap1[key]!!
             }
+        }
+        if(drug2.type_of_incompatibility.containsKey(drug1.drug_name.lowercase().trim())) {
+            return drug2.type_of_incompatibility[drug1.drug_name.lowercase().trim()]!!
         }
         val hashMap2 = drug2.type_of_incompatibility
         for( (key, value) in hashMap2 ) {
