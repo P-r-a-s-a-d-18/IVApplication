@@ -23,11 +23,6 @@ fun DisplayIncompList(drug: Drug) {
         .fillMaxWidth()
         .fillMaxSize()
     ) {
-        Text(
-            text = drug.drug_name,
-            color = Color.Blue,
-            fontSize = MaterialTheme.typography.h5.fontSize
-        )
         LazyColumn {
             items(drug.incompatible_drugs) {
                 ListItem(item = it)
