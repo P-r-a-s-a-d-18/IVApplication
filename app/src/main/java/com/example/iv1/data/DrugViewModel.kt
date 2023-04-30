@@ -12,6 +12,8 @@ import com.google.firebase.database.ValueEventListener
 class DrugViewModel: ViewModel() {
     val response: MutableState<DataState> = mutableStateOf(DataState.Empty)
 
+    var drugListLocal: ArrayList<Drug> = ArrayList()
+
     var tempList = mutableStateListOf<Drug>()
 
     var drugInfo: Drug = Drug()
@@ -35,6 +37,7 @@ class DrugViewModel: ViewModel() {
                     val drug: Drug? = ds.getValue(Drug::class.java)
                     if (drug != null) {
                         drugList.add(drug)
+                        drugListLocal.add(drug)
                     }
                 }
                 response.value = DataState.Success(drugList)
@@ -83,9 +86,9 @@ class DrugViewModel: ViewModel() {
         return toCheck
     }
 
-    fun setPair(pair: Pair<Drug, Drug>) {
-        drug1 = pair.first
-        drug2 = pair.second
+    fun setPair(drug_1: Drug, drug_2: Drug) {
+        drug1 = drug_1
+        drug2 = drug_2
     }
 
     fun getAssertion(): Boolean {
@@ -129,5 +132,17 @@ class DrugViewModel: ViewModel() {
             }
         }
         return obj
+    }
+
+    fun getDrug2(drug1: Drug, drug2: String) {
+        val temp = drugListLocal
+        for (i in 0 until temp.size) {
+            if ((temp[i].drug_name.lowercase().trim() == drug2.lowercase().trim()) ||
+                temp[i].drug_name.lowercase().trim().contains(drug2.lowercase().trim()) ||
+                drug2.lowercase().trim().contains(temp[i].drug_name.lowercase().trim())) {
+                setPair(drug1, temp[i])
+                break
+            }
+        }
     }
 }

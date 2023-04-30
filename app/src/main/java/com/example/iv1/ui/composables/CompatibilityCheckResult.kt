@@ -79,7 +79,7 @@ fun DisplayItem(
             .padding(vertical = 5.dp)
             .clickable {
                 onElementClicked(pair)
-                viewModel.setPair(pair)
+                viewModel.setPair(pair.first, pair.second)
             }
         ) {
             Card(

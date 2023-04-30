@@ -53,7 +53,7 @@ fun ResDetail(viewModel: DrugViewModel) {
             }
         }
     } else {
-        DisplayMessage()
+        DisplayMessage("!! NOT TESTED !!")
     }
   }
 }
@@ -114,9 +114,9 @@ fun DisplayData(it: HashMap<String, String>) {
 }
 
 @Composable
-fun DisplayMessage() {
+fun DisplayMessage(msg: String) {
     Text(modifier = Modifier.padding(10.dp),
-        text = "No Information Available !!",
+        text = "Not Tested !!",
         style = TextStyle(fontSize = 20.sp,
         textAlign = TextAlign.Center))
 }

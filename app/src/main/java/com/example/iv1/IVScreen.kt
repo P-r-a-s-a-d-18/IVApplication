@@ -192,11 +192,16 @@ fun Start(
             }
 
             composable(route = IVScreen.IncompList.name) {
-                DisplayIncompList(drug = viewModel.getDrug())
+                DisplayIncompList(drug = viewModel.getDrug(),
+                    viewModel = viewModel,
+                    navController = navController
+                )
             }
 
             composable(route = IVScreen.CompList.name) {
-                DisplayCompList(drug = viewModel.getDrug())
+                DisplayCompList(drug = viewModel.getDrug(),
+                    viewModel = viewModel
+                )
             }
         }
     }

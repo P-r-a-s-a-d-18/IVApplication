@@ -1,6 +1,7 @@
 package com.example.iv1.ui.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,11 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.iv1.IVScreen
 import com.example.iv1.R
 import com.example.iv1.data.Drug
+import com.example.iv1.data.DrugViewModel
 
 @Composable
-fun DisplayIncompList(drug: Drug) {
+fun DisplayIncompList(drug: Drug, viewModel: DrugViewModel, navController: NavController) {
     Column(modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()
@@ -26,7 +30,7 @@ fun DisplayIncompList(drug: Drug) {
         Spacer(modifier = Modifier.height(8.dp))
         LazyColumn {
             items(drug.incompatible_drugs) {
-                ListIncompDrug(item = it)
+                ListIncompDrug(drug = drug, item = it, viewModel, navController)
             }
         }
     }
@@ -34,7 +38,10 @@ fun DisplayIncompList(drug: Drug) {
 
 @Composable
 fun ListIncompDrug(
-    item: String
+    drug: Drug,
+    item: String,
+    viewModel: DrugViewModel,
+    navController: NavController
 ) {
     Box(
         modifier = Modifier
@@ -42,13 +49,14 @@ fun ListIncompDrug(
             .height(80.dp)
             .padding(10.dp)
     ) {
+        val result = viewModel.response.value
         Card(elevation = 6.dp,
             modifier = Modifier
                 .fillMaxWidth()
-//                .clickable {
-//                    viewModel.setDrug(drug)
-//                    onListItemClicked()
-//                }
+                .clickable {
+                    viewModel.getDrug2(drug1 = drug, drug2 = item.lowercase().trim())
+                    navController.navigate(IVScreen.ResultDetails.name)
+                }
         ) {
 
             Row(

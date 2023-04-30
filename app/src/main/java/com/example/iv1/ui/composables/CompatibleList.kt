@@ -1,6 +1,7 @@
 package com.example.iv1.ui.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,9 +16,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.iv1.R
 import com.example.iv1.data.Drug
+import com.example.iv1.data.DrugViewModel
 
 @Composable
-fun DisplayCompList(drug: Drug) {
+fun DisplayCompList(drug: Drug, viewModel: DrugViewModel) {
     Column(modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()
@@ -26,7 +28,7 @@ fun DisplayCompList(drug: Drug) {
         Spacer(modifier = Modifier.height(8.dp))
         LazyColumn {
             items(drug.compatible_drugs) {
-                ListCompDrug(item = it)
+                ListCompDrug(drug, item = it)
             }
         }
     }
@@ -34,7 +36,8 @@ fun DisplayCompList(drug: Drug) {
 
 @Composable
 fun ListCompDrug(
-    item: String
+    drug: Drug,
+    item: String,
 ) {
     Box(
         modifier = Modifier
@@ -45,10 +48,8 @@ fun ListCompDrug(
         Card(elevation = 6.dp,
             modifier = Modifier
                 .fillMaxWidth()
-//                .clickable {
-//                    viewModel.setDrug(drug)
-//                    onListItemClicked()
-//                }
+                .clickable {
+                }
         ) {
 
             Row(
