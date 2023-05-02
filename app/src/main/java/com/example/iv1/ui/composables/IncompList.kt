@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -79,6 +80,7 @@ fun ListIncompDrug(
                 Text(text = item, fontSize = MaterialTheme.typography.h6.fontSize, color = Color.Black)
 
                 Spacer(modifier = Modifier.weight(1f))
+                Icon(painter = painterResource(R.drawable.outline_cancel_24), contentDescription ="Incompatible", tint = Color.Red)
             }
             Spacer(modifier = Modifier.width(20.dp))
         }
