@@ -8,15 +8,15 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -64,55 +64,104 @@ fun InfoBox(drug: Drug, navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
 
-                Text(
-                    text = "Drug name : ",
-                    color = Color.Blue,
-                    fontSize = MaterialTheme.typography.h5.fontSize
-                )
-                Text(
-                    text = drug.drug_name,
-                    style = TextStyle(fontSize = 25.sp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier
+                        .background(colorResource(id = R.color.gray))
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(PaddingValues(8.dp, 16.dp))
+                ) {
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(text = "Drug: ", fontSize = 20.sp, color = Color.Black)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(text = drug.drug_name, fontFamily = FontFamily.Serif, fontSize = 20.sp, color = Color.Black)
+                }
 
-                Text(
-                    text = "pH : ",
-                    color = Color.Blue,
-                    fontSize = MaterialTheme.typography.h5.fontSize
-                )
-                Text(
-                    text = drug.pH,
-                    style = TextStyle(fontSize = 22.sp)
-                )
+//                Text(
+//                    text = "Drug name : ",
+//                    color = Color.Blue,
+//                    fontSize = MaterialTheme.typography.h5.fontSize
+//                )
+//                Text(
+//                    text = drug.drug_name,
+//                    style = TextStyle(fontSize = 25.sp)
+//                )
 
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Storage : ",
-                    color = Color.Blue,
-                    fontSize = MaterialTheme.typography.h5.fontSize
-                )
-                Text(
-                    text = drug.storage,
-                    lineHeight = 30.sp, 
-                    modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(fontSize = 20.sp)
-                )
+                Row(
+                    modifier = Modifier
+                        .background(colorResource(id = R.color.gray))
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(PaddingValues(8.dp, 16.dp))
+                ) {
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(text = "pH: ", fontSize = 20.sp, color = Color.Black)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(text = drug.pH, fontFamily = FontFamily.Serif, fontSize = 20.sp, color = Color.Black)
+                }
 
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Diluent : ",
-                    color = Color.Blue,
-                    fontSize = MaterialTheme.typography.h5.fontSize
-                )
-                Text(
-                    text = drug.iv_fluid,
-                    lineHeight = 30.sp,
-                    modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(fontSize = 20.sp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
+//                Text(
+//                    text = "pH : ",
+//                    color = Color.Blue,
+//                    fontSize = MaterialTheme.typography.h5.fontSize
+//                )
+//                Text(
+//                    text = drug.pH,
+//                    style = TextStyle(fontSize = 22.sp)
+//                )
+
+                Row(
+                    modifier = Modifier
+                        .background(colorResource(id = R.color.gray))
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(PaddingValues(8.dp, 16.dp))
+                ) {
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(text = "Storage: ", fontSize = 20.sp, color = Color.Black)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(text = drug.storage, fontFamily = FontFamily.Serif, fontSize = 20.sp, color = Color.Black)
+                }
+
+//                Text(
+//                    text = "Storage : ",
+//                    color = Color.Blue,
+//                    fontSize = MaterialTheme.typography.h5.fontSize
+//                )
+//                Text(
+//                    text = drug.storage,
+//                    lineHeight = 30.sp,
+//                    modifier = Modifier.fillMaxWidth(),
+//                    style = TextStyle(fontSize = 20.sp)
+//                )
+
+                Row(
+                    modifier = Modifier
+                        .background(colorResource(id = R.color.gray))
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(PaddingValues(8.dp, 16.dp))
+                ) {
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(text = "Diluent: ", fontSize = 20.sp, color = Color.Black)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(text = drug.iv_fluid, fontFamily = FontFamily.Serif, fontSize = 20.sp, color = Color.Black)
+                }
+
+//                Text(
+//                    text = "Diluent : ",
+//                    color = Color.Blue,
+//                    fontSize = MaterialTheme.typography.h5.fontSize
+//                )
+//                Text(
+//                    text = drug.iv_fluid,
+//                    lineHeight = 30.sp,
+//                    modifier = Modifier.fillMaxWidth(),
+//                    style = TextStyle(fontSize = 20.sp)
+//                )
+                Spacer(modifier = Modifier.height(4.dp))
                 HeaderView(questionText = "INCOMPATIBLE DRUGS", onClickItem = { navController.navigate(IVScreen.IncompList.name) })
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 HeaderView(questionText = "COMPATIBLE DRUGS", onClickItem = { navController.navigate(IVScreen.CompList.name) })
             }
         }
@@ -123,7 +172,7 @@ fun InfoBox(drug: Drug, navController: NavController) {
 fun HeaderView(questionText: String, onClickItem: () -> Unit) {
     Box(
         modifier = Modifier
-            .background(Color.White)
+            .background(colorResource(id = R.color.gray))
             .clickable(
                 indication = null, // Removes the ripple effect on tap
                 interactionSource = remember { MutableInteractionSource() }, // Removes the ripple effect on tap
@@ -133,7 +182,7 @@ fun HeaderView(questionText: String, onClickItem: () -> Unit) {
     ) {
         Text(
             text = questionText,
-            fontSize = 17.sp,
+            fontSize = 20.sp,
             color = Color.Blue,
             modifier = Modifier
                 .fillMaxWidth()

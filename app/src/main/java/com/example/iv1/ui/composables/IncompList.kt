@@ -61,7 +61,7 @@ fun ListIncompDrug(
 
             Row(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .wrapContentHeight()
                     .fillMaxWidth()
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically,

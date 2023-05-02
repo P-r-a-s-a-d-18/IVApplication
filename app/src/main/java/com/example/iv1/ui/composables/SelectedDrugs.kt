@@ -94,7 +94,7 @@ fun SelectedListItem(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
+            .wrapContentHeight()
             .padding(8.dp)
     ) {
         Card(elevation = 6.dp,modifier = Modifier.fillMaxWidth()) {
@@ -102,6 +102,7 @@ fun SelectedListItem(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
+                    .wrapContentHeight()
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -116,7 +117,7 @@ fun SelectedListItem(
                 IconButton(onClick = { viewModel.removeDrug(drug) }) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = "Remove ${drug.drug_name}")
                 }
-                Spacer(modifier = Modifier.width(15.dp))
+                Spacer(modifier = Modifier.width(8.dp))
             }
         }
     }

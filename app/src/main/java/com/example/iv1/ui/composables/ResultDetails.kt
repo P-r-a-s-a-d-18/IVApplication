@@ -116,7 +116,7 @@ fun DisplayData(it: HashMap<String, String>) {
 @Composable
 fun DisplayMessage(msg: String) {
     Text(modifier = Modifier.padding(10.dp),
-        text = "Not Tested !!",
+        text = msg,
         style = TextStyle(fontSize = 20.sp,
         textAlign = TextAlign.Center))
 }
