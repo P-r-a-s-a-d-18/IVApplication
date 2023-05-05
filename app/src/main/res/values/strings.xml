@@ -24,5 +24,6 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="incomp_list">Incompatible Drugs</string>
+    <string name="diluent_list">Diluents</string>
     <string name="comp_list">Compatible Drugs</string>
 </resources>

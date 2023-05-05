@@ -85,31 +85,11 @@ fun InfoBox(drug: Drug, navController: NavController) {
                     style = TextStyle(fontSize = 22.sp)
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Storage : ",
-                    color = Color.Blue,
-                    fontSize = MaterialTheme.typography.h5.fontSize
-                )
-                Text(
-                    text = drug.storage,
-                    lineHeight = 30.sp, 
-                    modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(fontSize = 20.sp)
-                )
+
+
 
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Diluent : ",
-                    color = Color.Blue,
-                    fontSize = MaterialTheme.typography.h5.fontSize
-                )
-                Text(
-                    text = drug.iv_fluid,
-                    lineHeight = 30.sp,
-                    modifier = Modifier.fillMaxWidth(),
-                    style = TextStyle(fontSize = 20.sp)
-                )
+                HeaderView(questionText = "DILUENT", onClickItem = { navController.navigate(IVScreen.DiluentList.name) })
                 Spacer(modifier = Modifier.height(8.dp))
                 HeaderView(questionText = "INCOMPATIBLE DRUGS", onClickItem = { navController.navigate(IVScreen.IncompList.name) })
                 Spacer(modifier = Modifier.height(8.dp))
@@ -183,3 +163,13 @@ fun HeaderView(questionText: String, onClickItem: () -> Unit) {
 //        }
 //    }
 //}
+
+
+
+
+
+
+
+
+
+

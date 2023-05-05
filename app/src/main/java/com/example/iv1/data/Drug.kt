@@ -8,5 +8,6 @@ data class Drug (
     var pH: String = "",
     var storage: String = "",
     var type_of_incompatibility: HashMap<String, ArrayList<HashMap<String, String>>> = HashMap(),
-    var compatible_drugs: ArrayList<String> = ArrayList()
+    var compatible_drugs: ArrayList<String> = ArrayList(),
+    var diluent_list: ArrayList<String> = ArrayList()
 )

@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.iv1.data.Drug
 import com.example.iv1.data.DrugViewModel
 import com.example.iv1.ui.composables.*
 
@@ -29,6 +30,7 @@ enum class IVScreen(@StringRes val title: Int) {
     ResultDetails(title = R.string.incomp_details),
     IRCalc(title = R.string.ir_calc),
     IncompList(title = R.string.incomp_list),
+    DiluentList(title = R.string.diluent_list),
     CompList(title = R.string.comp_list)
 }
 
@@ -198,14 +200,22 @@ fun Start(
                 )
             }
 
+            composable(route = IVScreen.DiluentList.name) {
+                DisplayDiluentList(drug = viewModel.getDrug(),
+
+                )
+            }
+
             composable(route = IVScreen.CompList.name) {
                 DisplayCompList(drug = viewModel.getDrug(),
                     viewModel = viewModel
                 )
             }
+
         }
     }
 }
+
 
 private fun cancelAndNavigateToStart(
     navController: NavHostController,
