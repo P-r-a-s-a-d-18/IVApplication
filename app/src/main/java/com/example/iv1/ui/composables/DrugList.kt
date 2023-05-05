@@ -195,12 +195,13 @@ fun ListItem(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .wrapContentHeight()
             .padding(10.dp)
     ) {
         Card(elevation = 6.dp,
             modifier = Modifier
                 .fillMaxWidth()
+                .wrapContentHeight()
                 .clickable {
                     viewModel.setDrug(drug)
                     onListItemClicked()
@@ -209,36 +210,36 @@ fun ListItem(
 
             Row(
                 modifier = Modifier
-                    .fillMaxSize()
                     .fillMaxWidth()
+                    .wrapContentHeight()
                     .padding(8.dp),
                 verticalAlignment =Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 Spacer(modifier = Modifier.width(5.dp))
 
+                if (!viewModel.getSelectedDrugList().contains(drug)) {
+                    IconButton(onClick = { viewModel.selectDrug(drug) }) {
+                        Icon(imageVector = Icons.Default.AddCircle, contentDescription = "Select ${drug.drug_name}")
+                    }
+                } else {
+                    Icon(imageVector = Icons.Default.Check, contentDescription = "Selected",
+                        tint=Color.Green,
+                        modifier = Modifier.size(30.dp))
+                }
+
+                Spacer(modifier = Modifier.width(15.dp))
+
+                Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h6.fontSize)
+
+                Spacer(modifier = Modifier.weight(1f))
+
                 Image(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.drug2),
                     contentDescription = "Drugs Logo"
                 )
-                Spacer(modifier = Modifier.width(15.dp))
 
-                Text(text = drug.drug_name, fontSize = MaterialTheme.typography.h6.fontSize)
-                
-                Spacer(modifier = Modifier.weight(1f))
-
-                if (!viewModel.getSelectedDrugList().contains(drug)) {
-                    IconButton(onClick = { viewModel.selectDrug(drug) }) {
-                        Icon(imageVector = Icons.Default.AddCircle, contentDescription = "Select ${drug.drug_name}")
-                    }
-                }
-                    else{
-                        Icon(imageVector = Icons.Default.Check, contentDescription = "Selected",
-                        tint=Color.Green,
-                        modifier = Modifier.size(30.dp))
-
-                    }
                 }
                 Spacer(modifier = Modifier.width(20.dp))
         }

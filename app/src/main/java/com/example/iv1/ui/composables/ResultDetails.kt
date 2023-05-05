@@ -4,19 +4,18 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.iv1.R
 import com.example.iv1.data.DrugViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -53,6 +52,7 @@ fun ResDetail(viewModel: DrugViewModel) {
             }
         }
     } else {
+        Icon(painter = painterResource(R.drawable.outline_warning_24), contentDescription ="Compatible", tint=Color.Yellow)
         DisplayMessage("!! NOT TESTED !!")
     }
   }
@@ -116,7 +116,7 @@ fun DisplayData(it: HashMap<String, String>) {
 @Composable
 fun DisplayMessage(msg: String) {
     Text(modifier = Modifier.padding(10.dp),
-        text = "Not Tested !!",
+        text = msg,
         style = TextStyle(fontSize = 20.sp,
         textAlign = TextAlign.Center))
 }

@@ -62,7 +62,7 @@ fun StartScreen(
                             .clip(shape = CircleShape)
                             .background(color = Color.White)
                             .border(width = 1.dp, color = Color.Gray, shape = CircleShape),
-                        painter = painterResource(id = R.drawable.img1),
+                        painter = painterResource(id = R.drawable.neonate_img1),
                         contentScale = ContentScale.FillWidth,
                         contentDescription = "Circular image"
                     )

@@ -1,11 +1,11 @@
 package com.example.iv1.ui.composables
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -46,13 +46,14 @@ fun ListIncompDrug(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .wrapContentHeight()
             .padding(10.dp)
     ) {
         val result = viewModel.response.value
         Card(elevation = 6.dp,
             modifier = Modifier
                 .fillMaxWidth()
+                .wrapContentHeight()
                 .clickable {
                     viewModel.getDrug2(drug1 = drug, drug2 = item.lowercase().trim())
                     navController.navigate(IVScreen.ResultDetails.name)
@@ -61,7 +62,7 @@ fun ListIncompDrug(
 
             Row(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .wrapContentHeight()
                     .fillMaxWidth()
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -69,16 +70,23 @@ fun ListIncompDrug(
             ) {
                 Spacer(modifier = Modifier.width(5.dp))
 
-                Image(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.drug2),
-                    contentDescription = "Drugs Logo"
+                Icon(
+                    painter = painterResource(R.drawable.outline_cancel_24),
+                    contentDescription ="Incompatible",
+                    tint = Color.Red
                 )
+
+//                Image(
+//                    modifier = Modifier.size(30.dp),
+//                    painter = painterResource(id = R.drawable.drug2),
+//                    contentDescription = "Drugs Logo"
+//                )
                 Spacer(modifier = Modifier.width(15.dp))
 
                 Text(text = item, fontSize = MaterialTheme.typography.h6.fontSize, color = Color.Black)
 
                 Spacer(modifier = Modifier.weight(1f))
+
             }
             Spacer(modifier = Modifier.width(20.dp))
         }
